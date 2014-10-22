@@ -1,0 +1,7 @@
+inotifywait -m ./src | while read -r dir event name; do
+  case $event in
+    OPEN) echo "The file $name was created or opened (not necessarily for writing)"; ./Build;;
+    WRITE) echo "The file $name was written to" ./Build;;
+    DELETE) echo "The file $name was deleted " ./Build;;
+  esac
+done
