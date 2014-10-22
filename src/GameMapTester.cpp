@@ -14,3 +14,13 @@ TEST(GameMap, MapWithSingleTileReturnsThatTile)
     GameMap gMap{Tile::Floor};
     ASSERT_EQ(Tile::Floor, gMap.GetTile(0,0));
 }
+
+TEST(GameMap, 2x2MapReturnsCorrectTiles)
+{
+    GameMap gMap{{Tile::Floor, Tile::Floor},
+                 {Tile::Floor, Tile::Wall}};
+    ASSERT_EQ(Tile::Floor, gMap.GetTile(0,0));
+    ASSERT_EQ(Tile::Floor, gMap.GetTile(0,1));
+    ASSERT_EQ(Tile::Floor, gMap.GetTile(1,0));
+    ASSERT_EQ(Tile::Wall , gMap.GetTile(1,1));
+}
