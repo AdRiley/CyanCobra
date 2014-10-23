@@ -40,7 +40,7 @@ GameMap::GameMap(std::initializer_list<std::initializer_list<Tile>> iListTiles) 
 Tile GameMap::GetTile(int x, int y)
 {
     if (x >= m_MinX && x <= m_MaxX && y >= m_MinY && y <= m_MaxY)
-        return m_Map[x][y];
+        return m_Map[y][x];
     else
         return Tile::Empty;
 }
