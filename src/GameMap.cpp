@@ -32,7 +32,7 @@ GameMap::GameMap(std::initializer_list<std::initializer_list<Tile>> iListTiles) 
             m_Map[r].push_back(i);
         ++r;
     }
-    m_MaxY = r;
+    m_MaxY = m_Map.size()-1;
     if (m_MaxY > 0)
         m_MaxX = m_Map[0].size()-1;
 }

@@ -3,33 +3,44 @@
 
 using namespace ::testing;
 
-TEST(GameMap, EmptyMapReturnsEmptyTile)
+class GameMapTester: public Test
+{
+public:
+    GameMap gMap;
+
+    GameMapTester() :
+        gMap{{Tile::Floor, Tile::Floor},
+             {Tile::Wall,  Tile::Floor},
+             {Tile::Floor, Tile::Wall }}
+    {}
+};
+
+TEST_F(GameMapTester, EmptyMapReturnsEmptyTile)
 {
     GameMap gMap;
     ASSERT_EQ(Tile::Empty, gMap.GetTile(0,0));
 }
 
-TEST(GameMap, MapWithSingleTileReturnsThatTile)
+TEST_F(GameMapTester, MapWithSingleTileReturnsThatTile)
 {
     GameMap gMap{Tile::Floor};
     ASSERT_EQ(Tile::Floor, gMap.GetTile(0,0));
 }
 
-TEST(GameMap, 2x2MapReturnsCorrectTiles)
+TEST_F(GameMapTester, MapReturnsCorrectTiles)
 {
-    GameMap gMap{{Tile::Floor, Tile::Floor},
-                 {Tile::Wall,  Tile::Floor}};
     ASSERT_EQ(Tile::Floor, gMap.GetTile(0,0));
     ASSERT_EQ(Tile::Floor, gMap.GetTile(1,0));
     ASSERT_EQ(Tile::Wall , gMap.GetTile(0,1));
     ASSERT_EQ(Tile::Floor, gMap.GetTile(1,1));
+    ASSERT_EQ(Tile::Floor, gMap.GetTile(0,2));
+    ASSERT_EQ(Tile::Wall , gMap.GetTile(1,2));
 }
 
-TEST(GameMap, RequestingTileOffTheMapReturnsEmptyTile)
+TEST_F(GameMapTester, RequestingTileOffTheMapReturnsEmptyTile)
 {
-    GameMap gMap{{Tile::Floor, Tile::Floor},
-                 {Tile::Floor, Tile::Wall}};
-    ASSERT_EQ(Tile::Empty, gMap.GetTile(-1,-2));
-    ASSERT_EQ(Tile::Empty, gMap.GetTile(2,0));
-
+    ASSERT_EQ(Tile::Empty, gMap.GetTile(-1, 0));
+    ASSERT_EQ(Tile::Empty, gMap.GetTile( 0,-1));
+    ASSERT_EQ(Tile::Empty, gMap.GetTile( 1, 3));
+    ASSERT_EQ(Tile::Empty, gMap.GetTile( 2, 2));
 }
