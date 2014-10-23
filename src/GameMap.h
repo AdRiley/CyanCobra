@@ -9,7 +9,12 @@ enum class Tile
 
 class GameMap
 {
+private:
     std::vector<std::vector<Tile>> m_Map;
+    int m_MinX;
+    int m_MaxX;
+    int m_MinY;
+    int m_MaxY;
 public:
     GameMap();
     GameMap(Tile t);

@@ -1,14 +1,28 @@
 #include "GameMap.h"
 
-GameMap::GameMap() : m_Map({{Tile::Empty}})
+GameMap::GameMap() :
+    m_Map({{Tile::Empty}}),
+    m_MinX{0},
+    m_MaxX{0},
+    m_MinY{0},
+    m_MaxY{0}
 {
 }
 
-GameMap::GameMap(Tile t) : m_Map({{t}})
+GameMap::GameMap(Tile t) :
+    m_Map({{t}}),
+    m_MinX{0},
+    m_MaxX{1},
+    m_MinY{0},
+    m_MaxY{1}
 {
 }
 
-GameMap::GameMap(std::initializer_list<std::initializer_list<Tile>> iListTiles)
+GameMap::GameMap(std::initializer_list<std::initializer_list<Tile>> iListTiles) :
+    m_MinX{0},
+    m_MaxX{0},
+    m_MinY{0},
+    m_MaxY{0}
 {
     int r = 0;
     for (auto sl : iListTiles)
@@ -18,9 +32,15 @@ GameMap::GameMap(std::initializer_list<std::initializer_list<Tile>> iListTiles)
             m_Map[r].push_back(i);
         ++r;
     }
+    m_MaxY = r;
+    if (m_MaxY > 0)
+        m_MaxX = m_Map[0].size()-1;
 }
 
 Tile GameMap::GetTile(int x, int y)
 {
-    return m_Map[x][y];
+    if (x >= m_MinX && x <= m_MaxX && y >= m_MinY && y <= m_MaxY)
+        return m_Map[x][y];
+    else
+        return Tile::Empty;
 }
