@@ -3,7 +3,7 @@
 
 using namespace ::testing;
 
-class GameMapTester: public Test
+class AGameMap: public Test
 {
 public:
     GameMap gMap;
@@ -15,19 +15,19 @@ public:
     {}
 };
 
-TEST_F(GameMapTester, EmptyMapReturnsEmptyTile)
+TEST_F(AGameMap, WhenEmptyReturnsEmptyTile)
 {
     GameMap gMap;
     ASSERT_EQ(Tile::Empty, gMap.GetTile(0,0));
 }
 
-TEST_F(GameMapTester, MapWithSingleTileReturnsThatTile)
+TEST_F(AGameMap, WithASingleTileReturnsThatTile)
 {
     GameMap gMap{Tile::Floor};
     ASSERT_EQ(Tile::Floor, gMap.GetTile(0,0));
 }
 
-TEST_F(GameMapTester, MapReturnsCorrectTiles)
+TEST_F(AGameMap, ReturnsCorrectTiles)
 {
     ASSERT_EQ(Tile::Floor, gMap.GetTile(0,0));
     ASSERT_EQ(Tile::Floor, gMap.GetTile(1,0));
@@ -37,7 +37,7 @@ TEST_F(GameMapTester, MapReturnsCorrectTiles)
     ASSERT_EQ(Tile::Wall , gMap.GetTile(1,2));
 }
 
-TEST_F(GameMapTester, RequestingTileOffTheMapReturnsEmptyTile)
+TEST_F(AGameMap, ReturnsEmptyTileForRequestsOffTheMap)
 {
     ASSERT_EQ(Tile::Empty, gMap.GetTile(-1, 0));
     ASSERT_EQ(Tile::Empty, gMap.GetTile( 0,-1));
