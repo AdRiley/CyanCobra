@@ -1,28 +1,10 @@
 #include "GameMap.h"
 
-GameMap::GameMap() :
-    m_Map({{Tile::Empty}}),
-    m_MinX{0},
-    m_MaxX{0},
-    m_MinY{0},
-    m_MaxY{0}
-{
-}
-
-GameMap::GameMap(Tile t) :
-    m_Map({{t}}),
-    m_MinX{0},
-    m_MaxX{1},
-    m_MinY{0},
-    m_MaxY{1}
-{
-}
-
 GameMap::GameMap(std::initializer_list<std::initializer_list<Tile>> iListTiles) :
     m_MinX{0},
-    m_MaxX{0},
+    m_MaxX{-1},
     m_MinY{0},
-    m_MaxY{0}
+    m_MaxY{-1}
 {
     int r = 0;
     for (auto sl : iListTiles)
@@ -33,7 +15,7 @@ GameMap::GameMap(std::initializer_list<std::initializer_list<Tile>> iListTiles) 
         ++r;
     }
     m_MaxY = m_Map.size()-1;
-    if (m_MaxY > 0)
+    if (m_Map.size() > 0)
         m_MaxX = m_Map[0].size()-1;
 }
 

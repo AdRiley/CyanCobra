@@ -8,7 +8,7 @@ class AGameMap: public Test
 public:
     GameMap gMap;
 
-    GameMapTester() :
+    AGameMap() :
         gMap{{Tile::Floor, Tile::Floor},
              {Tile::Wall,  Tile::Floor},
              {Tile::Floor, Tile::Wall }}
@@ -17,13 +17,13 @@ public:
 
 TEST_F(AGameMap, WhenEmptyReturnsEmptyTile)
 {
-    GameMap gMap;
-    ASSERT_EQ(Tile::Empty, gMap.GetTile(0,0));
+     GameMap gMap{{}};
+     ASSERT_EQ(Tile::Empty, gMap.GetTile(0,0));
 }
 
 TEST_F(AGameMap, WithASingleTileReturnsThatTile)
 {
-    GameMap gMap{Tile::Floor};
+    GameMap gMap{{Tile::Floor}};
     ASSERT_EQ(Tile::Floor, gMap.GetTile(0,0));
 }
 
