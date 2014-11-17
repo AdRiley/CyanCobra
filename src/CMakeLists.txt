@@ -7,14 +7,16 @@ add_definitions(-std=c++0x)
 set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall")
 
 set(sources
-    GameMap.cpp)
+    GameMap.cpp
+    GameMapView.cpp)
 add_library(CyanCobra_lib ${sources})
 add_executable(CyanCobra main.cpp)
 
 enable_testing()
 set (testSources
      testMain.cpp
-     GameMapTester.cpp)
+     GameMapTester.cpp
+     GameMapViewTester.cpp)
 add_executable(runUnitTests ${testSources})
 target_link_libraries(runUnitTests CyanCobra_lib) 
 target_link_libraries(runUnitTests pthread)

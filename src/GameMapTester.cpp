@@ -44,3 +44,25 @@ TEST_F(AGameMap, ReturnsEmptyTileForRequestsOffTheMap)
     ASSERT_EQ(Tile::Empty, gMap.GetTile( 1, 3));
     ASSERT_EQ(Tile::Empty, gMap.GetTile( 2, 2));
 }
+
+TEST_F(AGameMap, ReturnsItsMinX)
+{
+    ASSERT_THAT(0, Eq(gMap.GetMinX()));
+}
+
+TEST_F(AGameMap, ReturnsItsMaxX)
+{
+    ASSERT_THAT(1, Eq(gMap.GetMaxX()));
+}
+
+TEST_F(AGameMap, ReturnsItsMinY)
+{
+    ASSERT_THAT(0, Eq(gMap.GetMinY()));
+}
+
+TEST_F(AGameMap, ReturnsItsMaxY)
+{
+    ASSERT_THAT(2, Eq(gMap.GetMaxY()));
+}
+
+

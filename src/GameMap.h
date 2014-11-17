@@ -1,3 +1,6 @@
+#ifndef GAMEMAP_H
+#define GAMEMAP_H
+
 #include <vector>
 
 enum class Tile
@@ -17,7 +20,11 @@ private:
     int m_MaxY;
 public:
     GameMap(std::initializer_list<std::initializer_list<Tile>> iListTiles);
-    Tile GetTile(int x, int y);
+    Tile GetTile(int x, int y) const;
+    int GetMinX() const;
+    int GetMaxX() const;
+    int GetMinY() const;
+    int GetMaxY() const;
 };
 
-
+#endif
