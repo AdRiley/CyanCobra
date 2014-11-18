@@ -15,4 +15,6 @@ void GameMapView::DrawMap(const GameMap& gameMap)
     for (int x{gameMap.GetMinX()}; x <= gameMap.GetMaxX(); ++x)
         for (int y{gameMap.GetMinY()}; y <= gameMap.GetMaxY(); ++y)
             m_Display->DrawTile(x, y, m_TileSymbol[gameMap.GetTile(x,y)]);
+
+    m_Display->RefreshScreen();
 }

@@ -10,7 +10,9 @@ set(sources
     GameMap.cpp
     GameMapView.cpp)
 add_library(CyanCobra_lib ${sources})
-add_executable(CyanCobra main.cpp)
+add_executable(CyanCobra main.cpp CursesDisplay.cpp)
+target_link_libraries(CyanCobra CyanCobra_lib) 
+target_link_libraries(CyanCobra ncurses)
 
 enable_testing()
 set (testSources

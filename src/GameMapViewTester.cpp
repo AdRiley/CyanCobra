@@ -8,6 +8,7 @@ class MockDisplay : public Display
 {
 public:
     MOCK_METHOD0(ClearScreen, void());
+    MOCK_METHOD0(RefreshScreen, void());
     MOCK_METHOD3(DrawTile, void(int x, int y, char c));
 };
 
@@ -32,6 +33,8 @@ TEST(AGameMapView, DrawsA2x3GameMap)
     EXPECT_CALL(*display, DrawTile(0, 2, '#'))
         .Times(1);
     EXPECT_CALL(*display, DrawTile(1, 2, '#'))
+        .Times(1);
+    EXPECT_CALL(*display, RefreshScreen())
         .Times(1);
 
     gmv.DrawMap(gm);

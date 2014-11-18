@@ -1,8 +1,19 @@
 #include <iostream>
 
+#include "CursesDisplay.h"
+#include "GameMap.h"
+#include "GameMapView.h"
+
 int main(void)
 {
-    std::cout << "Hello World!";
+    GameMap gm{{Tile::Floor, Tile::Wall},
+               {Tile::Floor, Tile::Wall},
+               {Tile::Wall,  Tile::Wall}};
+    std::shared_ptr<CursesDisplay> display{std::make_shared<CursesDisplay>()};
+    GameMapView gmv{display};
+    gmv.DrawMap(gm);
+    int x;
+    std::cin >> x;
     return 0;
 }
 
