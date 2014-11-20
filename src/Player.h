@@ -1,3 +1,6 @@
+#ifndef PLAYER_H
+#define PLAYER_H
+
 class Player
 {
 private:
@@ -5,6 +8,8 @@ private:
     int m_Y;
 public:
     Player(int x, int y);
-    int GetX();
-    int GetY();
+    int GetX() const;
+    int GetY() const;
 };
+
+#endif

@@ -7,7 +7,8 @@ enum class Tile
 {
     Empty,
     Floor,
-    Wall
+    Wall,
+    Player
 };
 
 class GameMap

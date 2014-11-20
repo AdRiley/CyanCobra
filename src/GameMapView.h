@@ -3,6 +3,7 @@
 
 #include "Display.h"
 #include "GameMap.h"
+#include "Player.h"
 
 class GameMapView
 {
@@ -12,4 +13,8 @@ private:
 public:
     GameMapView(std::shared_ptr<Display> display);
     void DrawMap(const GameMap& gameMap);
+    void DrawMapAndPlayer(const GameMap& gameMap, const Player& player);
+private:
+    void RenderMap(const GameMap& gameMap);
+    void RenderPlayer(const Player& player);
 };

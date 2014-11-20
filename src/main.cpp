@@ -20,9 +20,10 @@ int main(void)
               {Tile::Empty, Tile::Empty, Tile::Empty, Tile::Wall , Tile::Wall , Tile::Wall , Tile::Empty, Tile::Empty, Tile::Empty},
               {Tile::Empty, Tile::Empty, Tile::Empty, Tile::Empty, Tile::Wall , Tile::Empty, Tile::Empty, Tile::Empty, Tile::Empty}
               };
+    Player player{4, 4};
     std::shared_ptr<CursesDisplay> display{std::make_shared<CursesDisplay>()};
     GameMapView gmv{display};
-    gmv.DrawMap(gm);
+    gmv.DrawMapAndPlayer(gm, player);
     int x;
     std::cin >> x;
     return 0;

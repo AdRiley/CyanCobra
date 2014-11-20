@@ -1,6 +1,7 @@
 #include "gmock/gmock.h"
 #include "GameMapView.h"
 #include "GameMap.h"
+#include "Player.h"
 
 using namespace ::testing;
 
@@ -38,6 +39,37 @@ TEST(AGameMapView, DrawsA2x3GameMap)
         .Times(1);
 
     gmv.DrawMap(gm);
+}
+
+TEST(AGameMapView, DrawsA2x3GameMapWithPlayer)
+{
+    GameMap gm{{Tile::Floor, Tile::Wall},
+               {Tile::Floor, Tile::Wall},
+               {Tile::Wall,  Tile::Wall}};
+    Player player{0, 1};
+    std::shared_ptr<MockDisplay> display{std::make_shared<MockDisplay>()};
+    GameMapView gmv{display};
+
+    EXPECT_CALL(*display, ClearScreen())
+        .Times(1);
+    EXPECT_CALL(*display, DrawTile(0, 0, '.'))
+        .Times(1);
+    EXPECT_CALL(*display, DrawTile(1, 0, '#'))
+        .Times(1);
+    EXPECT_CALL(*display, DrawTile(0, 1, '.'))
+        .Times(1);
+    EXPECT_CALL(*display, DrawTile(1, 1, '#'))
+        .Times(1);
+    EXPECT_CALL(*display, DrawTile(0, 2, '#'))
+        .Times(1);
+    EXPECT_CALL(*display, DrawTile(1, 2, '#'))
+        .Times(1);
+    EXPECT_CALL(*display, DrawTile(0, 1, '@'))
+        .Times(1);
+    EXPECT_CALL(*display, RefreshScreen())
+        .Times(1);
+
+    gmv.DrawMapAndPlayer(gm, player);
 }
 
 

@@ -5,12 +5,12 @@ Player::Player(int x, int y) :
     m_Y(y)
 {}
 
-int Player::GetX()
+int Player::GetX() const
 {
     return m_X;
 }
 
-int Player::GetY()
+int Player::GetY() const
 {
     return m_Y;
 }
