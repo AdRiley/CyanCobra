@@ -8,7 +8,8 @@ set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall")
 
 set(sources
     GameMap.cpp
-    GameMapView.cpp)
+    GameMapView.cpp
+    Player.cpp)
 add_library(CyanCobra_lib ${sources})
 add_executable(CyanCobra main.cpp CursesDisplay.cpp)
 target_link_libraries(CyanCobra CyanCobra_lib) 
@@ -18,7 +19,8 @@ enable_testing()
 set (testSources
      testMain.cpp
      GameMapTester.cpp
-     GameMapViewTester.cpp)
+     GameMapViewTester.cpp
+     PlayerTester.cpp)
 add_executable(runUnitTests ${testSources})
 target_link_libraries(runUnitTests CyanCobra_lib) 
 target_link_libraries(runUnitTests pthread)
