@@ -10,6 +10,7 @@ public:
     Player(int x, int y);
     int GetX() const;
     int GetY() const;
+    void SetPosition(int x, int y);
 };
 
 #endif

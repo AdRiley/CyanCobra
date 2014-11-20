@@ -14,3 +14,9 @@ int Player::GetY() const
 {
     return m_Y;
 }
+
+void Player::SetPosition(int x, int y)
+{
+    m_X = x;
+    m_Y = y;
+}
