@@ -7,6 +7,7 @@ add_definitions(-std=c++0x)
 set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall")
 
 set(sources
+    GameEngine.cpp
     GameMap.cpp
     GameMapView.cpp
     Player.cpp)
@@ -18,6 +19,7 @@ target_link_libraries(CyanCobra ncurses)
 enable_testing()
 set (testSources
      testMain.cpp
+     GameEngineTester.cpp
      GameMapTester.cpp
      GameMapViewTester.cpp
      PlayerTester.cpp)
