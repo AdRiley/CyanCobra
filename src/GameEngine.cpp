@@ -1,8 +1,10 @@
 #include "GameEngine.h"
 
-GameEngine::GameEngine(std::shared_ptr<Input> input, std::shared_ptr<Player> player) :
+GameEngine::GameEngine(std::shared_ptr<Input> input, std::shared_ptr<Player> player, std::shared_ptr<GameMap> gm, std::shared_ptr<GameMapView> gmv) :
     m_Input{input},
-    m_Player{player}
+    m_Player{player},
+    m_GameMap{gm},
+    m_GameMapView{gmv}
 {
 }
 
@@ -24,6 +26,7 @@ bool GameEngine::ProcessCommand()
             MovePlayer(1, 0);
             break;
     }
+    m_GameMapView->DrawMapAndPlayer(*m_GameMap, *m_Player);
     return false;
 }
 

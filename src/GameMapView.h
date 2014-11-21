@@ -1,3 +1,6 @@
+#ifndef GAMEMAPVIEW_H
+#define GAMEMAPVIEW_H
+
 #include <map>
 #include <memory>
 
@@ -11,3 +14,5 @@ public:
     virtual void DrawMap(const GameMap& gameMap) = 0;
     virtual void DrawMapAndPlayer(const GameMap& gameMap, const Player& player) = 0;
 };
+
+#endif
