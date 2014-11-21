@@ -50,7 +50,7 @@ public:
         gEngine->ProcessCommand();
     }
 
-    void Expect_Player_Position(int x, int y)
+    void Then_Player_Position(int x, int y)
     {
         EXPECT_THAT(y, Eq(player->GetY()));
         EXPECT_THAT(x, Eq(player->GetX()));
@@ -62,28 +62,28 @@ TEST_F(AGameEngine, MovesAPlayerUpWhenItGetsAnUpCommand)
 {
     Given_Command(Command::Up);
     When_ProcessCommand();
-    Expect_Player_Position(7, 3);
+    Then_Player_Position(7, 3);
 }
 
 TEST_F(AGameEngine, MovesAPlayerDownWhenItGetsADownCommand)
 {
     Given_Command(Command::Down);
     When_ProcessCommand();
-    Expect_Player_Position(7, 5);
+    Then_Player_Position(7, 5);
 }
 
 TEST_F(AGameEngine, MovesAPlayerLeftWhenItGetsALeftCommand)
 {
     Given_Command(Command::Left);
     When_ProcessCommand();
-    Expect_Player_Position(6, 4);
+    Then_Player_Position(6, 4);
 }
 
 TEST_F(AGameEngine, MovesAPlayerRightWhenItGetsARightCommand)
 {
     Given_Command(Command::Right);
     When_ProcessCommand();
-    Expect_Player_Position(8, 4);
+    Then_Player_Position(8, 4);
 }
 
 
