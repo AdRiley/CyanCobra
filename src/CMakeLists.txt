@@ -7,6 +7,7 @@ add_definitions(-std=c++0x)
 set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall")
 
 set(sources
+    CursesInput.cpp
     GameEngine.cpp
     GameMap.cpp
     AsciiGameMapView.cpp

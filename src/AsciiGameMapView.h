@@ -4,7 +4,7 @@
 #include "GameMapView.h"
 #include "Display.h"
 
-class AsciiGameMapView : GameMapView
+class AsciiGameMapView : public GameMapView
 {
 private:
     std::shared_ptr<Display> m_Display;
