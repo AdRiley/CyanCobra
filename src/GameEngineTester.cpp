@@ -35,62 +35,55 @@ public:
         player = std::make_shared<Player>(7, 4);
         gEngine = std::make_shared<GameEngine>(input, player, gm, gmv);
     }
+
+    void Given_Command(Command c)
+    {
+        EXPECT_CALL(*input, GetCommand())
+            .Times(1)
+            .WillOnce(Return(c));
+        EXPECT_CALL(*gmv, DrawMapAndPlayer(Ref(*gm), Ref(*player)))
+            .Times(1);
+    }
+
+    void When_ProcessCommand()
+    {
+        gEngine->ProcessCommand();
+    }
+
+    void Expect_Player_Position(int x, int y)
+    {
+        EXPECT_THAT(y, Eq(player->GetY()));
+        EXPECT_THAT(x, Eq(player->GetX()));
+    }
+
 };
 
 TEST_F(AGameEngine, MovesAPlayerUpWhenItGetsAnUpCommand)
 {
-    EXPECT_CALL(*input, GetCommand())
-        .Times(1)
-        .WillOnce(Return(Command::Up));
-    EXPECT_CALL(*gmv, DrawMapAndPlayer(Ref(*gm), Ref(*player)))
-        .Times(1);
-
-    gEngine->ProcessCommand();
-
-    EXPECT_THAT(3, Eq(player->GetY()));
-    EXPECT_THAT(7, Eq(player->GetX()));
+    Given_Command(Command::Up);
+    When_ProcessCommand();
+    Expect_Player_Position(7, 3);
 }
 
 TEST_F(AGameEngine, MovesAPlayerDownWhenItGetsADownCommand)
 {
-    EXPECT_CALL(*input, GetCommand())
-        .Times(1)
-        .WillOnce(Return(Command::Down));
-    EXPECT_CALL(*gmv, DrawMapAndPlayer(Ref(*gm), Ref(*player)))
-        .Times(1);
-
-    gEngine->ProcessCommand();
-
-    EXPECT_THAT(5, Eq(player->GetY()));
-    EXPECT_THAT(7, Eq(player->GetX()));
+    Given_Command(Command::Down);
+    When_ProcessCommand();
+    Expect_Player_Position(7, 5);
 }
 
 TEST_F(AGameEngine, MovesAPlayerLeftWhenItGetsALeftCommand)
 {
-    EXPECT_CALL(*input, GetCommand())
-        .Times(1)
-        .WillOnce(Return(Command::Left));
-    EXPECT_CALL(*gmv, DrawMapAndPlayer(Ref(*gm), Ref(*player)))
-        .Times(1);
-
-    gEngine->ProcessCommand();
-
-    EXPECT_THAT(4, Eq(player->GetY()));
-    EXPECT_THAT(6, Eq(player->GetX()));
+    Given_Command(Command::Left);
+    When_ProcessCommand();
+    Expect_Player_Position(6, 4);
 }
 
 TEST_F(AGameEngine, MovesAPlayerRightWhenItGetsARightCommand)
 {
-    EXPECT_CALL(*input, GetCommand())
-        .Times(1)
-        .WillOnce(Return(Command::Right));
-    EXPECT_CALL(*gmv, DrawMapAndPlayer(Ref(*gm), Ref(*player)))
-        .Times(1);
-
-    gEngine->ProcessCommand();
-
-    EXPECT_THAT(4, Eq(player->GetY()));
-    EXPECT_THAT(8, Eq(player->GetX()));
+    Given_Command(Command::Right);
+    When_ProcessCommand();
+    Expect_Player_Position(8, 4);
 }
 
 
