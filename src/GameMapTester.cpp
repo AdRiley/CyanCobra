@@ -65,4 +65,16 @@ TEST_F(AGameMap, ReturnsItsMaxY)
     ASSERT_THAT(2, Eq(gMap.GetMaxY()));
 }
 
+TEST_F(AGameMap, CanBeSetToADifferentMap)
+{
+    gMap.SetMap({{Tile::Floor}});
+    ASSERT_THAT(0, Eq(gMap.GetMinX()));
+    ASSERT_THAT(0, Eq(gMap.GetMinY()));
+    ASSERT_THAT(0, Eq(gMap.GetMaxX()));
+    ASSERT_THAT(0, Eq(gMap.GetMaxY()));
+    ASSERT_THAT(Tile::Floor, Eq(gMap.GetTile(0,0)));
+}
+
+
+
 

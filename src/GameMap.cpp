@@ -6,6 +6,12 @@ GameMap::GameMap(std::initializer_list<std::initializer_list<Tile>> iListTiles) 
     m_MinY{0},
     m_MaxY{-1}
 {
+    SetMap(iListTiles);
+}
+
+void GameMap::SetMap(std::initializer_list<std::initializer_list<Tile>> iListTiles)
+{
+    m_Map.clear();
     int r = 0;
     for (auto sl : iListTiles)
     {

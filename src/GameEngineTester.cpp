@@ -94,4 +94,16 @@ TEST_F(AGameEngine, ReturnsFalseWhenItGetsAnExitCommand)
     EXPECT_THAT(false, Eq(gEngine->ProcessCommand()));
 }
 
+TEST_F(AGameEngine, DoesNotMoveAPlayerToAnImpassableTile)
+{
+    gm->SetMap({
+        {Tile::Floor, Tile::Wall}
+        });
+    player->SetPosition(0, 0);
+    Given_Command(Command::Right);
+
+    When_ProcessCommand();
+    Then_Player_Position(0, 0);
+}
+
 

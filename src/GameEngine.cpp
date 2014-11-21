@@ -4,7 +4,13 @@ GameEngine::GameEngine(std::shared_ptr<Input> input, std::shared_ptr<Player> pla
     m_Input{input},
     m_Player{player},
     m_GameMap{gm},
-    m_GameMapView{gmv}
+    m_GameMapView{gmv},
+    m_IsPassable{
+        {Tile::Empty , true},
+        {Tile::Floor , true},
+        {Tile::Wall  , false},
+        {Tile::Player, false}
+    }
 {
 }
 
@@ -35,6 +41,9 @@ bool GameEngine::ProcessCommand()
 
 void GameEngine::MovePlayer(int deltaX, int deltaY)
 {
-    m_Player->SetPosition(m_Player->GetX() + deltaX, m_Player->GetY() + deltaY);
+    int destX = m_Player->GetX() + deltaX;
+    int destY = m_Player->GetY() + deltaY;
+    if (m_IsPassable[m_GameMap->GetTile(destX, destY)])
+        m_Player->SetPosition(destX, destY);
 }
 
