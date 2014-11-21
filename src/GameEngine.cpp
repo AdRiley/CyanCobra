@@ -25,9 +25,12 @@ bool GameEngine::ProcessCommand()
         case Command::Right:
             MovePlayer(1, 0);
             break;
+        case Command::Exit:
+            return false;
+            break;
     }
     m_GameMapView->DrawMapAndPlayer(*m_GameMap, *m_Player);
-    return false;
+    return true;
 }
 
 void GameEngine::MovePlayer(int deltaX, int deltaY)

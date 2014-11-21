@@ -47,7 +47,7 @@ public:
 
     void When_ProcessCommand()
     {
-        gEngine->ProcessCommand();
+        EXPECT_THAT(true, Eq(gEngine->ProcessCommand()));
     }
 
     void Then_Player_Position(int x, int y)
@@ -84,6 +84,14 @@ TEST_F(AGameEngine, MovesAPlayerRightWhenItGetsARightCommand)
     Given_Command(Command::Right);
     When_ProcessCommand();
     Then_Player_Position(8, 4);
+}
+
+TEST_F(AGameEngine, ReturnsFalseWhenItGetsAnExitCommand)
+{
+    EXPECT_CALL(*input, GetCommand())
+        .Times(1)
+        .WillOnce(Return(Command::Exit));
+    EXPECT_THAT(false, Eq(gEngine->ProcessCommand()));
 }
 
 
