@@ -2,7 +2,7 @@
 
 #include "CursesDisplay.h"
 #include "GameMap.h"
-#include "GameMapView.h"
+#include "AsciiGameMapView.h"
 
 int main(void)
 {
@@ -22,7 +22,7 @@ int main(void)
               };
     Player player{4, 4};
     std::shared_ptr<CursesDisplay> display{std::make_shared<CursesDisplay>()};
-    GameMapView gmv{display};
+    AsciiGameMapView gmv{display};
     gmv.DrawMapAndPlayer(gm, player);
     int x;
     std::cin >> x;

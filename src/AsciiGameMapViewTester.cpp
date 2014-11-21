@@ -1,5 +1,5 @@
 #include "gmock/gmock.h"
-#include "GameMapView.h"
+#include "AsciiGameMapView.h"
 #include "GameMap.h"
 #include "Player.h"
 
@@ -13,13 +13,13 @@ public:
     MOCK_METHOD3(DrawTile, void(int x, int y, char c));
 };
 
-TEST(AGameMapView, DrawsA2x3GameMap)
+TEST(AnAsciiGameMapView, DrawsA2x3GameMap)
 {
     GameMap gm{{Tile::Floor, Tile::Wall},
                {Tile::Floor, Tile::Wall},
                {Tile::Wall,  Tile::Wall}};
     std::shared_ptr<MockDisplay> display{std::make_shared<MockDisplay>()};
-    GameMapView gmv{display};
+    AsciiGameMapView gmv{display};
 
     EXPECT_CALL(*display, ClearScreen())
         .Times(1);
@@ -41,14 +41,14 @@ TEST(AGameMapView, DrawsA2x3GameMap)
     gmv.DrawMap(gm);
 }
 
-TEST(AGameMapView, DrawsA2x3GameMapWithPlayer)
+TEST(AnAsciiGameMapView, DrawsA2x3GameMapWithPlayer)
 {
     GameMap gm{{Tile::Floor, Tile::Wall},
                {Tile::Floor, Tile::Wall},
                {Tile::Wall,  Tile::Wall}};
     Player player{0, 1};
     std::shared_ptr<MockDisplay> display{std::make_shared<MockDisplay>()};
-    GameMapView gmv{display};
+    AsciiGameMapView gmv{display};
 
     EXPECT_CALL(*display, ClearScreen())
         .Times(1);

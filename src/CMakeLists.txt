@@ -9,7 +9,7 @@ set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall")
 set(sources
     GameEngine.cpp
     GameMap.cpp
-    GameMapView.cpp
+    AsciiGameMapView.cpp
     Player.cpp)
 add_library(CyanCobra_lib ${sources})
 add_executable(CyanCobra main.cpp CursesDisplay.cpp)
@@ -21,7 +21,7 @@ set (testSources
      testMain.cpp
      GameEngineTester.cpp
      GameMapTester.cpp
-     GameMapViewTester.cpp
+     AsciiGameMapViewTester.cpp
      PlayerTester.cpp)
 add_executable(runUnitTests ${testSources})
 target_link_libraries(runUnitTests CyanCobra_lib) 
