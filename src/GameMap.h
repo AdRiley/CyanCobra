@@ -9,7 +9,8 @@ enum class Tile
     Floor,
     Wall,
     Player,
-    ClosedDoor
+    ClosedDoor,
+    OpenDoor
 };
 
 class GameMap

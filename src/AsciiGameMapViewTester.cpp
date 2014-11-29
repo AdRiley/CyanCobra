@@ -88,5 +88,21 @@ TEST(AnAsciiGameMapView, RendersAClosedDoorAsBackslash)
     gmv.DrawMap(gm);
 }
 
+TEST(AnAsciiGameMapView, RendersAnOpenDoorAsUnderscore)
+{
+    GameMap gm{{Tile::OpenDoor}};
+    std::shared_ptr<MockDisplay> display{std::make_shared<MockDisplay>()};
+    AsciiGameMapView gmv{display};
+
+    EXPECT_CALL(*display, ClearScreen())
+        .Times(1);
+    EXPECT_CALL(*display, DrawTile(0, 0, '_'))
+        .Times(1);
+    EXPECT_CALL(*display, RefreshScreen())
+        .Times(1);
+
+    gmv.DrawMap(gm);
+}
+
 
 
