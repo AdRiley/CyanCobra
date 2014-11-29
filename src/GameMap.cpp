@@ -25,6 +25,11 @@ void GameMap::SetMap(std::initializer_list<std::initializer_list<Tile>> iListTil
         m_MaxX = m_Map[0].size()-1;
 }
 
+void GameMap::SetTile(int x, int y, Tile t)
+{
+    m_Map[y][x] = t;
+}
+
 Tile GameMap::GetTile(int x, int y) const
 {
     if (x >= m_MinX && x <= m_MaxX && y >= m_MinY && y <= m_MaxY)

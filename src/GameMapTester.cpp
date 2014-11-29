@@ -75,6 +75,12 @@ TEST_F(AGameMap, CanBeSetToADifferentMap)
     ASSERT_THAT(Tile::Floor, Eq(gMap.GetTile(0,0)));
 }
 
+TEST_F(AGameMap, CanSetASingleTile)
+{
+    gMap.SetTile(0, 0, Tile::OpenDoor);
+    ASSERT_THAT(Tile::OpenDoor, Eq(gMap.GetTile(0, 0)));
+}
+
 
 
 
