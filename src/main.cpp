@@ -9,18 +9,18 @@
 int main(void)
 {
     std::shared_ptr<GameMap> gm{std::make_shared<GameMap>(std::initializer_list<std::initializer_list<Tile>>{
-              {Tile::Empty, Tile::Wall , Tile::Wall , Tile::Wall , Tile::Wall , Tile::Wall , Tile::Wall , Tile::Wall , Tile::Empty},
-              {Tile::Empty, Tile::Wall , Tile::Floor, Tile::Floor, Tile::Floor, Tile::Floor, Tile::Floor, Tile::Wall , Tile::Empty},
-              {Tile::Wall , Tile::Wall , Tile::Floor, Tile::Floor, Tile::Floor, Tile::Floor, Tile::Floor, Tile::Wall , Tile::Wall },
-              {Tile::Wall , Tile::Floor, Tile::Floor, Tile::Floor, Tile::Floor, Tile::Floor, Tile::Floor, Tile::Floor, Tile::Wall },
-              {Tile::Wall , Tile::Floor, Tile::Floor, Tile::Floor, Tile::Floor, Tile::Floor, Tile::Floor, Tile::Floor, Tile::Wall },
-              {Tile::Wall , Tile::Floor, Tile::Floor, Tile::Floor, Tile::Floor, Tile::Floor, Tile::Floor, Tile::Floor, Tile::Wall },
-              {Tile::Wall , Tile::Wall , Tile::Floor, Tile::Floor, Tile::Floor, Tile::Floor, Tile::Floor, Tile::Wall , Tile::Wall },
-              {Tile::Empty, Tile::Wall , Tile::Wall , Tile::Wall , Tile::Floor, Tile::Wall , Tile::Wall , Tile::Wall , Tile::Empty},
-              {Tile::Empty, Tile::Wall , Tile::Wall , Tile::Floor, Tile::Floor, Tile::Floor, Tile::Wall , Tile::Wall , Tile::Empty},
-              {Tile::Empty, Tile::Empty, Tile::Wall , Tile::Wall , Tile::Floor, Tile::Wall , Tile::Wall , Tile::Empty, Tile::Empty},
-              {Tile::Empty, Tile::Empty, Tile::Empty, Tile::Wall , Tile::Wall , Tile::Wall , Tile::Empty, Tile::Empty, Tile::Empty},
-              {Tile::Empty, Tile::Empty, Tile::Empty, Tile::Empty, Tile::Wall , Tile::Empty, Tile::Empty, Tile::Empty, Tile::Empty}
+              {Tile::Empty, Tile::Wall , Tile::Wall , Tile::Wall , Tile::Wall      , Tile::Wall , Tile::Wall , Tile::Wall , Tile::Empty},
+              {Tile::Empty, Tile::Wall , Tile::Floor, Tile::Floor, Tile::Floor     , Tile::Floor, Tile::Floor, Tile::Wall , Tile::Empty},
+              {Tile::Wall , Tile::Wall , Tile::Floor, Tile::Floor, Tile::Floor     , Tile::Floor, Tile::Floor, Tile::Wall , Tile::Wall },
+              {Tile::Wall , Tile::Floor, Tile::Floor, Tile::Floor, Tile::Floor     , Tile::Floor, Tile::Floor, Tile::Floor, Tile::Wall },
+              {Tile::Wall , Tile::Floor, Tile::Floor, Tile::Floor, Tile::Floor     , Tile::Floor, Tile::Floor, Tile::Floor, Tile::Wall },
+              {Tile::Wall , Tile::Floor, Tile::Floor, Tile::Floor, Tile::Floor     , Tile::Floor, Tile::Floor, Tile::Floor, Tile::Wall },
+              {Tile::Wall , Tile::Wall , Tile::Floor, Tile::Floor, Tile::Floor     , Tile::Floor, Tile::Floor, Tile::Wall , Tile::Wall },
+              {Tile::Empty, Tile::Wall , Tile::Wall , Tile::Wall , Tile::ClosedDoor, Tile::Wall , Tile::Wall , Tile::Wall , Tile::Empty},
+              {Tile::Empty, Tile::Wall , Tile::Wall , Tile::Floor, Tile::Floor     , Tile::Floor, Tile::Wall , Tile::Wall , Tile::Empty},
+              {Tile::Empty, Tile::Empty, Tile::Wall , Tile::Wall , Tile::Floor     , Tile::Wall , Tile::Wall , Tile::Empty, Tile::Empty},
+              {Tile::Empty, Tile::Empty, Tile::Empty, Tile::Wall , Tile::Wall      , Tile::Wall , Tile::Empty, Tile::Empty, Tile::Empty},
+              {Tile::Empty, Tile::Empty, Tile::Empty, Tile::Empty, Tile::Wall      , Tile::Empty, Tile::Empty, Tile::Empty, Tile::Empty}
               }
               )};
     std::shared_ptr<Player> player{std::make_shared<Player>(4, 4)};

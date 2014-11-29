@@ -72,4 +72,21 @@ TEST(AnAsciiGameMapView, DrawsA2x3GameMapWithPlayer)
     gmv.DrawMapAndPlayer(gm, player);
 }
 
+TEST(AnAsciiGameMapView, RendersAClosedDoorAsBackslash)
+{
+    GameMap gm{{Tile::ClosedDoor}};
+    std::shared_ptr<MockDisplay> display{std::make_shared<MockDisplay>()};
+    AsciiGameMapView gmv{display};
+
+    EXPECT_CALL(*display, ClearScreen())
+        .Times(1);
+    EXPECT_CALL(*display, DrawTile(0, 0, '\\'))
+        .Times(1);
+    EXPECT_CALL(*display, RefreshScreen())
+        .Times(1);
+
+    gmv.DrawMap(gm);
+}
+
+
 

@@ -8,7 +8,8 @@ enum class Tile
     Empty,
     Floor,
     Wall,
-    Player
+    Player,
+    ClosedDoor
 };
 
 class GameMap

@@ -6,7 +6,8 @@ AsciiGameMapView::AsciiGameMapView(std::shared_ptr<Display> display) :
     m_TileSymbol{{Tile::Floor , '.'},
                  {Tile::Wall  , '#'},
                  {Tile::Empty , ' '},
-                 {Tile::Player, '@'}}
+                 {Tile::Player, '@'},
+                 {Tile::ClosedDoor, '\\'}}
 {}
 
 void AsciiGameMapView::DrawMap(const GameMap& gameMap)
