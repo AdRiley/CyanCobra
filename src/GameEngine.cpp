@@ -74,6 +74,9 @@ void GameEngine::ActionTile(int x, int y)
         case Tile::ClosedDoor:
             m_GameMap->SetTile(x, y, Tile::OpenDoor);
             break;
+        case Tile::OpenDoor:
+            m_GameMap->SetTile(x, y, Tile::ClosedDoor);
+            break;
         default:
             break;
     }

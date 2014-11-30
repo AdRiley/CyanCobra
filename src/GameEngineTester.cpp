@@ -118,4 +118,16 @@ TEST_F(AGameEngine, ChangesAClosedDoorToAOpenDoorWhenActioned)
     EXPECT_THAT(Tile::OpenDoor, Eq(gm->GetTile(1, 0)));
 }
 
+TEST_F(AGameEngine, ChangesAOpenDoorToAClosedDoorWhenActioned)
+{
+    gm->SetMap({
+        {Tile::Floor, Tile::OpenDoor}
+        });
+    player->SetPosition(0, 0);
+    Given_Command(Command::ActionRight);
+
+    When_ProcessCommand();
+    EXPECT_THAT(Tile::ClosedDoor, Eq(gm->GetTile(1, 0)));
+}
+
 
