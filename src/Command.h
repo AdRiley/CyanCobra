@@ -4,5 +4,9 @@ enum class Command
     Down,
     Left,
     Right,
+    ActionUp,
+    ActionDown,
+    ActionLeft,
+    ActionRight,
     Exit
 };

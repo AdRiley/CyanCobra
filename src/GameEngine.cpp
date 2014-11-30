@@ -31,6 +31,18 @@ bool GameEngine::ProcessCommand()
         case Command::Right:
             MovePlayer(1, 0);
             break;
+        case Command::ActionUp:
+            Action(0, -1);
+            break;
+        case Command::ActionDown:
+            Action(0, 1);
+            break;
+        case Command::ActionLeft:
+            Action(-1, 0);
+            break;
+        case Command::ActionRight:
+            Action(1, 0);
+            break;
         case Command::Exit:
             return false;
             break;
@@ -45,5 +57,25 @@ void GameEngine::MovePlayer(int deltaX, int deltaY)
     int destY = m_Player->GetY() + deltaY;
     if (m_IsPassable[m_GameMap->GetTile(destX, destY)])
         m_Player->SetPosition(destX, destY);
+}
+
+void GameEngine::Action(int deltaX, int deltaY)
+{
+    int actionDestX = m_Player->GetX() + deltaX;
+    int actionDestY = m_Player->GetY() + deltaY;
+    ActionTile(actionDestX, actionDestY);
+}
+
+void GameEngine::ActionTile(int x, int y)
+{
+    auto tile = m_GameMap->GetTile(x, y);
+    switch (tile)
+    {
+        case Tile::ClosedDoor:
+            m_GameMap->SetTile(x, y, Tile::OpenDoor);
+            break;
+        default:
+            break;
+    }
 }
 

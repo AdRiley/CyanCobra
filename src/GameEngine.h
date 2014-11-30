@@ -17,4 +17,6 @@ public:
     bool ProcessCommand();
 private:
     void MovePlayer(int deltaX, int deltaY);
+    void Action(int delataX, int deltaY);
+    void ActionTile(int x, int y);
 };

@@ -106,4 +106,16 @@ TEST_F(AGameEngine, DoesNotMoveAPlayerToAnImpassableTile)
     Then_Player_Position(0, 0);
 }
 
+TEST_F(AGameEngine, ChangesAClosedDoorToAOpenDoorWhenActioned)
+{
+    gm->SetMap({
+        {Tile::Floor, Tile::ClosedDoor}
+        });
+    player->SetPosition(0, 0);
+    Given_Command(Command::ActionRight);
+
+    When_ProcessCommand();
+    EXPECT_THAT(Tile::OpenDoor, Eq(gm->GetTile(1, 0)));
+}
+
 
