@@ -1,4 +1,5 @@
 #include "GameMap.h"
+#include <stdexcept>
 
 GameMap::GameMap(std::initializer_list<std::initializer_list<Tile>> iListTiles) :
     m_MinX{0},
@@ -27,15 +28,23 @@ void GameMap::SetMap(std::initializer_list<std::initializer_list<Tile>> iListTil
 
 void GameMap::SetTile(int x, int y, Tile t)
 {
-    m_Map[y][x] = t;
+    if (XYInBounds(x, y))
+        m_Map[y][x] = t;
+    else
+        throw std::out_of_range{"Co-ordinates outside map range"};
 }
 
 Tile GameMap::GetTile(int x, int y) const
 {
-    if (x >= m_MinX && x <= m_MaxX && y >= m_MinY && y <= m_MaxY)
+    if (XYInBounds(x, y))
         return m_Map[y][x];
     else
         return Tile::Empty;
+}
+
+bool GameMap::XYInBounds(int x, int y) const
+{
+    return x >= m_MinX && x <= m_MaxX && y >= m_MinY && y <= m_MaxY;
 }
 
 int GameMap::GetMinX() const {return m_MinX;}

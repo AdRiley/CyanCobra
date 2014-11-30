@@ -30,6 +30,8 @@ public:
     int GetMaxX() const;
     int GetMinY() const;
     int GetMaxY() const;
+private:
+    bool XYInBounds(int x, int y) const;
 };
 
 #endif

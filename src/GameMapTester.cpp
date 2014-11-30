@@ -1,5 +1,6 @@
 #include "gmock/gmock.h"
 #include "GameMap.h"
+#include <stdexcept>
 
 using namespace ::testing;
 
@@ -79,6 +80,11 @@ TEST_F(AGameMap, CanSetASingleTile)
 {
     gMap.SetTile(0, 0, Tile::OpenDoor);
     ASSERT_THAT(Tile::OpenDoor, Eq(gMap.GetTile(0, 0)));
+}
+
+TEST_F(AGameMap, ThrowsIfTryingToSetATileOffTheMap)
+{
+    ASSERT_THROW(gMap.SetTile(5, 5, Tile::Floor), std::out_of_range);
 }
 
 
