@@ -106,6 +106,18 @@ TEST_F(AGameEngine, DoesNotMoveAPlayerToAnImpassableTile)
     Then_Player_Position(0, 0);
 }
 
+TEST_F(AGameEngine, MovesAPlayerToAnOpenDoor)
+{
+    gm->SetMap({
+        {Tile::Floor, Tile::OpenDoor}
+        });
+    player->SetPosition(0, 0);
+    Given_Command(Command::Right);
+
+    When_ProcessCommand();
+    Then_Player_Position(1, 0);
+}
+
 TEST_F(AGameEngine, ChangesAClosedDoorToAOpenDoorWhenActioned)
 {
     gm->SetMap({

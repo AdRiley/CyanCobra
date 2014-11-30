@@ -11,7 +11,6 @@ private:
     std::shared_ptr<Player> m_Player;
     std::shared_ptr<GameMap> m_GameMap;
     std::shared_ptr<GameMapView> m_GameMapView;
-    std::map<Tile, bool> m_IsPassable;
 public:
     GameEngine(std::shared_ptr<Input> input, std::shared_ptr<Player> player, std::shared_ptr<GameMap> gm, std::shared_ptr<GameMapView> gmv);
     bool ProcessCommand();
@@ -19,4 +18,5 @@ private:
     void MovePlayer(int deltaX, int deltaY);
     void Action(int delataX, int deltaY);
     void ActionTile(int x, int y);
+    bool IsPassable(Tile t) const;
 };

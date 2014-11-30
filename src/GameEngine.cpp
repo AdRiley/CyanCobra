@@ -4,13 +4,7 @@ GameEngine::GameEngine(std::shared_ptr<Input> input, std::shared_ptr<Player> pla
     m_Input{input},
     m_Player{player},
     m_GameMap{gm},
-    m_GameMapView{gmv},
-    m_IsPassable{
-        {Tile::Empty , true},
-        {Tile::Floor , true},
-        {Tile::Wall  , false},
-        {Tile::Player, false}
-    }
+    m_GameMapView{gmv}
 {
 }
 
@@ -55,7 +49,7 @@ void GameEngine::MovePlayer(int deltaX, int deltaY)
 {
     int destX = m_Player->GetX() + deltaX;
     int destY = m_Player->GetY() + deltaY;
-    if (m_IsPassable[m_GameMap->GetTile(destX, destY)])
+    if (IsPassable(m_GameMap->GetTile(destX, destY)))
         m_Player->SetPosition(destX, destY);
 }
 
@@ -80,5 +74,10 @@ void GameEngine::ActionTile(int x, int y)
         default:
             break;
     }
+}
+
+bool GameEngine::IsPassable(Tile t) const
+{
+    return t==Tile::Empty || t==Tile::Floor || t==Tile::OpenDoor;
 }
 
