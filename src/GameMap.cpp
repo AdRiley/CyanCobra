@@ -16,10 +16,10 @@ GameMap::GameMap(unsigned int x, unsigned int y) :
     m_MinY{0},
     m_MaxY{y}
 {
-    for (int i = 0; i <= y; ++i)
+    for (unsigned int i = 0; i <= y; ++i)
     {
         m_Map.resize(m_Map.size()+1);
-        for (int j = 0; j <= x; ++j)
+        for (unsigned int j = 0; j <= x; ++j)
             m_Map[i].push_back(Tile::Empty);
     }
 }

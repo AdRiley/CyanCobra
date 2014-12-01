@@ -10,6 +10,7 @@ set(sources
     CursesInput.cpp
     GameEngine.cpp
     GameMap.cpp
+    RoomGenerator.cpp
     AsciiGameMapView.cpp
     Player.cpp)
 add_library(CyanCobra_lib ${sources})
@@ -22,6 +23,7 @@ set (testSources
      testMain.cpp
      GameEngineTester.cpp
      GameMapTester.cpp
+     RoomGeneratorTester.cpp
      AsciiGameMapViewTester.cpp
      PlayerTester.cpp)
 add_executable(runUnitTests ${testSources})
