@@ -87,6 +87,19 @@ TEST_F(AGameMap, ThrowsIfTryingToSetATileOffTheMap)
     ASSERT_THROW(gMap.SetTile(5, 5, Tile::Floor), std::out_of_range);
 }
 
-
+TEST_F(AGameMap, CanBeConstructedAsAnEmptyMap)
+{
+    GameMap gMap{1, 2};
+    ASSERT_EQ(Tile::Empty, gMap.GetTile(0,0));
+    ASSERT_EQ(Tile::Empty, gMap.GetTile(1,0));
+    ASSERT_EQ(Tile::Empty, gMap.GetTile(0,1));
+    ASSERT_EQ(Tile::Empty, gMap.GetTile(1,1));
+    ASSERT_EQ(Tile::Empty, gMap.GetTile(0,2));
+    ASSERT_EQ(Tile::Empty, gMap.GetTile(1,2));
+    ASSERT_THAT(0, Eq(gMap.GetMinX()));
+    ASSERT_THAT(1, Eq(gMap.GetMaxX()));
+    ASSERT_THAT(0, Eq(gMap.GetMinY()));
+    ASSERT_THAT(2, Eq(gMap.GetMaxY()));
+}
 
 

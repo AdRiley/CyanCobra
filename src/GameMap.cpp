@@ -10,6 +10,20 @@ GameMap::GameMap(std::initializer_list<std::initializer_list<Tile>> iListTiles) 
     SetMap(iListTiles);
 }
 
+GameMap::GameMap(unsigned int x, unsigned int y) :
+    m_MinX{0},
+    m_MaxX{x},
+    m_MinY{0},
+    m_MaxY{y}
+{
+    for (int i = 0; i <= y; ++i)
+    {
+        m_Map.resize(m_Map.size()+1);
+        for (int j = 0; j <= x; ++j)
+            m_Map[i].push_back(Tile::Empty);
+    }
+}
+
 void GameMap::SetMap(std::initializer_list<std::initializer_list<Tile>> iListTiles)
 {
     m_Map.clear();

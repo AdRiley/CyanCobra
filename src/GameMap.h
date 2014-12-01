@@ -23,6 +23,7 @@ private:
     int m_MaxY;
 public:
     GameMap(std::initializer_list<std::initializer_list<Tile>> iListTiles);
+    GameMap(unsigned int x, unsigned int y);
     void SetMap(std::initializer_list<std::initializer_list<Tile>> iListTiles);
     void SetTile(int x, int y, Tile t);
     Tile GetTile(int x, int y) const;
