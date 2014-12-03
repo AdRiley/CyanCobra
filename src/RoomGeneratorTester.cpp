@@ -37,3 +37,14 @@ TEST_F(ARoomGenerator, GeneratesA2x2Room)
     AssertRangeIsTile(Tile::Wall, gm, 3, 1, 3, 2);
 }
 
+TEST_F(ARoomGenerator, DoesntPlaceASquareRoomIfThereIsAWallInTheWay)
+{
+    GameMap gm{3, 3};
+    gm.SetTile(2, 2, Tile::Wall);
+    ASSERT_FALSE(RoomGenerator::MakeSquareRoom(gm, 1, 1, 2));
+    ASSERT_THAT(Tile::Wall, Eq(gm.GetTile(2,2)));
+    gm.SetTile(2, 2, Tile::Empty);
+    AssertRangeIsTile(Tile::Empty, gm, 0, 0, 3, 3);
+}
+
+

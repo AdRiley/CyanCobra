@@ -3,8 +3,10 @@
 class RoomGenerator
 {
 public:
-    static void MakeSquareRoom(GameMap& gm, int x, int y, unsigned int size);
+    static bool MakeSquareRoom(GameMap& gm, int x, int y, unsigned int size);
+private:
+    static void AddSquareRoomToMap(GameMap& gm, int x, int y, unsigned int size);
     static void MakeRow(GameMap& gm, int startX, int endX, int y, Tile t);
     static void MakeColumn(GameMap& gm, int startY, int endY, int x, Tile t);
-
+    static bool RangeIsEmpty(GameMap& gm, int startX, int startY, int endX, int endY);
 };

@@ -1,6 +1,29 @@
 #include "RoomGenerator.h"
 
-/*static*/ void RoomGenerator::MakeSquareRoom(GameMap& gm, int x, int y, unsigned int size)
+/*static*/ bool RoomGenerator::MakeSquareRoom(GameMap& gm, int x, int y, unsigned int size)
+{
+    if (RangeIsEmpty(gm, x, y, x + size - 1, y + size -1))
+    {
+        AddSquareRoomToMap(gm, x, y, size);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+/*static*/ bool RoomGenerator::RangeIsEmpty(GameMap& gm, int startX, int startY, int endX, int endY)
+{
+    for (int i = startX; i <= endX; ++i)
+        for (int j = startY; j <= endY; ++j)
+            if (gm.GetTile(i, j) != Tile::Empty)
+                return false;
+
+    return true;
+}
+
+/*static*/ void RoomGenerator::AddSquareRoomToMap(GameMap& gm, int x, int y, unsigned int size)
 {
     MakeRow(gm, x - 1, x + size, y - 1, Tile::Wall);
     for (int j = y; j < y + static_cast<int>(size); ++j)
