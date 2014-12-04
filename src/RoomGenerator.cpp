@@ -51,11 +51,17 @@
 /*static*/ void RoomGenerator::MakeRow(GameMap& gm, int startX, int endX, int y, Tile t)
 {
     for (int i = startX; i <= endX; ++i)
-        gm.SetTile(i, y, t);
+    {
+        if (gm.GetTile(i, y) == Tile::Empty)
+            gm.SetTile(i, y, t);
+    }
 }
 
 /*static*/ void RoomGenerator::MakeColumn(GameMap& gm, int startY, int endY, int x, Tile t)
 {
     for (int j = startY; j <= endY; ++j)
-        gm.SetTile(x, j, t);
+    {
+        if (gm.GetTile(x, j) == Tile::Empty)
+            gm.SetTile(x, j, t);
+    }
 }
