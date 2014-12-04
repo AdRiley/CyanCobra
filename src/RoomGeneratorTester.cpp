@@ -7,6 +7,10 @@ using namespace ::testing;
 class ARoomGenerator : public Test
 {
 public:
+    GameMap gm;
+    ARoomGenerator() : gm {3,3}
+    {}
+
     void AssertRangeIsTile(Tile t, const GameMap& gm, int startX, int startY, int endX, int endY)
     {
         for (int i = startX; i <= endX; ++i)
@@ -17,7 +21,6 @@ public:
 
 TEST_F(ARoomGenerator, GeneratesA1X1Room)
 {
-    GameMap gm{2, 2};
     RoomGenerator::MakeSquareRoom(gm, 1, 1, 1);
     ASSERT_THAT(Tile::Floor, Eq(gm.GetTile(1, 1)));
     AssertRangeIsTile(Tile::Wall, gm, 0, 0, 0, 2);
@@ -28,7 +31,6 @@ TEST_F(ARoomGenerator, GeneratesA1X1Room)
 
 TEST_F(ARoomGenerator, GeneratesA2x2Room)
 {
-    GameMap gm{3, 3};
     RoomGenerator::MakeSquareRoom(gm, 1, 1, 2);
     AssertRangeIsTile(Tile::Floor, gm, 1, 1, 2, 2);
     AssertRangeIsTile(Tile::Wall, gm, 0, 0, 0, 3);
@@ -39,7 +41,6 @@ TEST_F(ARoomGenerator, GeneratesA2x2Room)
 
 TEST_F(ARoomGenerator, DoesntPlaceASquareRoomIfThereIsAWallInTheWay)
 {
-    GameMap gm{3, 3};
     gm.SetTile(2, 2, Tile::Wall);
     ASSERT_FALSE(RoomGenerator::MakeSquareRoom(gm, 1, 1, 2));
     ASSERT_THAT(Tile::Wall, Eq(gm.GetTile(2,2)));
@@ -49,7 +50,6 @@ TEST_F(ARoomGenerator, DoesntPlaceASquareRoomIfThereIsAWallInTheWay)
 
 TEST_F(ARoomGenerator, DoesntPlaceASquareRoomIfThereIsAOpenDoorInAnExternalCorner)
 {
-    GameMap gm{3, 3};
     gm.SetTile(3, 3, Tile::OpenDoor);
     ASSERT_FALSE(RoomGenerator::MakeSquareRoom(gm, 1, 1, 2));
     ASSERT_THAT(Tile::OpenDoor, Eq(gm.GetTile(3,3)));
@@ -59,7 +59,6 @@ TEST_F(ARoomGenerator, DoesntPlaceASquareRoomIfThereIsAOpenDoorInAnExternalCorne
 
 TEST_F(ARoomGenerator, DoesntPlaceASquareRoomIfThereIsAClosedDoorInAnExternalCorner)
 {
-    GameMap gm{3, 3};
     gm.SetTile(0, 3, Tile::ClosedDoor);
     ASSERT_FALSE(RoomGenerator::MakeSquareRoom(gm, 1, 1, 2));
     ASSERT_THAT(Tile::ClosedDoor, Eq(gm.GetTile(0,3)));
@@ -69,7 +68,6 @@ TEST_F(ARoomGenerator, DoesntPlaceASquareRoomIfThereIsAClosedDoorInAnExternalCor
 
 TEST_F(ARoomGenerator, IfThereIsADoorInAWallLocationTheDoorRemains)
 {
-    GameMap gm{3, 3};
     gm.SetTile(0, 1, Tile::ClosedDoor);
     ASSERT_TRUE(RoomGenerator::MakeSquareRoom(gm, 1, 1, 2));
     ASSERT_THAT(Tile::ClosedDoor, Eq(gm.GetTile(0,1)));
