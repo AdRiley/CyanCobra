@@ -2,7 +2,7 @@
 
 /*static*/ bool RoomGenerator::MakeSquareRoom(GameMap& gm, int x, int y, unsigned int size)
 {
-    if (RangeIsEmpty(gm, x, y, x + size - 1, y + size -1))
+    if (RangeIsEmpty(gm, x, y, x + size - 1, y + size -1) && CornersAreWallOrEmpty(gm, x, y, size))
     {
         AddSquareRoomToMap(gm, x, y, size);
         return true;
@@ -11,6 +11,20 @@
     {
         return false;
     }
+}
+
+/*static*/ bool RoomGenerator::CornersAreWallOrEmpty(const GameMap &gm, int x, int y, unsigned int size)
+{
+    return TileIsWallOrEmpty(gm, x-1,y-1) &&
+           TileIsWallOrEmpty(gm, x+size,y-1) &&
+           TileIsWallOrEmpty(gm, x-1,y+size) &&
+           TileIsWallOrEmpty(gm, x+size,y+size);
+}
+
+/*static*/ bool RoomGenerator::TileIsWallOrEmpty(const GameMap &gm, int x, int y)
+{
+    auto t = gm.GetTile(x, y);
+    return t == Tile::Wall || t == Tile::Empty;
 }
 
 /*static*/ bool RoomGenerator::RangeIsEmpty(GameMap& gm, int startX, int startY, int endX, int endY)

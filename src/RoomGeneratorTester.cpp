@@ -47,4 +47,13 @@ TEST_F(ARoomGenerator, DoesntPlaceASquareRoomIfThereIsAWallInTheWay)
     AssertRangeIsTile(Tile::Empty, gm, 0, 0, 3, 3);
 }
 
+TEST_F(ARoomGenerator, DoesntPlaceASquareRoomIfThereIsAOpenDoorInAnExternalCorner)
+{
+    GameMap gm{3, 3};
+    gm.SetTile(3, 3, Tile::ClosedDoor);
+    ASSERT_FALSE(RoomGenerator::MakeSquareRoom(gm, 1, 1, 2));
+    ASSERT_THAT(Tile::ClosedDoor, Eq(gm.GetTile(3,3)));
+    gm.SetTile(3, 3, Tile::Empty);
+    AssertRangeIsTile(Tile::Empty, gm, 0, 0, 3, 3);
+}
 
