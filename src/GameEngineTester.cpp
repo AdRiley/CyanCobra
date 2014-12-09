@@ -1,9 +1,7 @@
-#include "gmock/gmock.h"
+#include "test.h"
 #include "GameMapView.h"
 #include "GameEngine.h"
 #include "GameMap.h"
-
-using namespace ::testing;
 
 class MockInput : public Input
 {
@@ -18,7 +16,7 @@ public:
     MOCK_METHOD2(DrawMapAndPlayer, void(const GameMap&, const Player&));
 };
 
-class AGameEngine: public Test
+class TestFixture
 {
 public:
     std::shared_ptr<GameEngine> gEngine;
@@ -26,8 +24,8 @@ public:
     std::shared_ptr<MockGameMapView> gmv;
     std::shared_ptr<GameMap> gm;
     std::shared_ptr<Player> player;
-
-    AGameEngine()
+    
+    TestFixture()
     {
         input = std::make_shared<MockInput>();
         gmv = std::make_shared<MockGameMapView>();
@@ -36,7 +34,7 @@ public:
         gEngine = std::make_shared<GameEngine>(input, player, gm, gmv);
     }
 
-    void Given_Command(Command c)
+    void GetCommand(Command c)
     {
         EXPECT_CALL(*input, GetCommand())
             .Times(1)
@@ -45,101 +43,163 @@ public:
             .Times(1);
     }
 
-    void When_ProcessCommand()
+    void ProcessCommand()
     {
-        EXPECT_THAT(true, Eq(gEngine->ProcessCommand()));
+        REQUIRE(gEngine->ProcessCommand());
     }
 
-    void Then_Player_Position(int x, int y)
+    void Require_Player_Position(int x, int y)
     {
-        EXPECT_THAT(y, Eq(player->GetY()));
-        EXPECT_THAT(x, Eq(player->GetX()));
+        REQUIRE(player->GetY() == y);
+        REQUIRE(player->GetX() == x);
     }
-
 };
 
-TEST_F(AGameEngine, MovesAPlayerUpWhenItGetsAnUpCommand)
+TEST_CASE_METHOD(TestFixture, "")
 {
-    Given_Command(Command::Up);
-    When_ProcessCommand();
-    Then_Player_Position(7, 3);
+    GIVEN("Command up")
+    {
+        GetCommand(Command::Up);
+        WHEN("Process command")
+        {
+            ProcessCommand();
+            THEN("Player in correct position")
+            {
+                Require_Player_Position(7,3);
+            }
+        }
+    }
+    
+    GIVEN("Command down")
+    {
+        GetCommand(Command::Down);
+        WHEN("Process command")
+        {
+            ProcessCommand();
+            THEN("Player in correct position")
+            {
+                Require_Player_Position(7,5);
+            }
+        }
+    }
+    
+    GIVEN("Command left")
+    {
+        GetCommand(Command::Left);
+        WHEN("Process command")
+        {
+            ProcessCommand();
+            THEN("Player in correct position")
+            {
+                Require_Player_Position(6,4);
+            }
+        }
+    }
+    
+    GIVEN("Command Right")
+    {
+        GetCommand(Command::Right);
+        WHEN("Process command")
+        {
+            ProcessCommand();
+            THEN("Player in correct position")
+            {
+                Require_Player_Position(8,4);
+            }
+        }
+    }
+    
+    GIVEN("Command Exit")
+    {
+        EXPECT_CALL(*input, GetCommand())
+            .Times(1)
+            .WillOnce(Return(Command::Exit));
+        THEN("Expect returns false when process Command")
+        {
+            REQUIRE(gEngine->ProcessCommand() == false);
+        }
+    }
 }
 
-TEST_F(AGameEngine, MovesAPlayerDownWhenItGetsADownCommand)
+TEST_CASE_METHOD(TestFixture, "Test a player does not move to an impassable tile")
 {
-    Given_Command(Command::Down);
-    When_ProcessCommand();
-    Then_Player_Position(7, 5);
-}
-
-TEST_F(AGameEngine, MovesAPlayerLeftWhenItGetsALeftCommand)
-{
-    Given_Command(Command::Left);
-    When_ProcessCommand();
-    Then_Player_Position(6, 4);
-}
-
-TEST_F(AGameEngine, MovesAPlayerRightWhenItGetsARightCommand)
-{
-    Given_Command(Command::Right);
-    When_ProcessCommand();
-    Then_Player_Position(8, 4);
-}
-
-TEST_F(AGameEngine, ReturnsFalseWhenItGetsAnExitCommand)
-{
-    EXPECT_CALL(*input, GetCommand())
-        .Times(1)
-        .WillOnce(Return(Command::Exit));
-    EXPECT_THAT(false, Eq(gEngine->ProcessCommand()));
-}
-
-TEST_F(AGameEngine, DoesNotMoveAPlayerToAnImpassableTile)
-{
-    gm->SetMap({
+    GIVEN("A Map with a floor, wall and player")
+    {
+        gm->SetMap({
         {Tile::Floor, Tile::Wall}
         });
-    player->SetPosition(0, 0);
-    Given_Command(Command::Right);
-
-    When_ProcessCommand();
-    Then_Player_Position(0, 0);
+        player->SetPosition(0, 0);
+        WHEN("A right command is given")
+        {
+            GetCommand(Command::Right);
+            ProcessCommand();
+            THEN("The player has not moved")
+            {
+                Require_Player_Position(0, 0);
+            }
+        }
+    }
 }
 
-TEST_F(AGameEngine, MovesAPlayerToAnOpenDoor)
+TEST_CASE_METHOD(TestFixture, "Test a player moves to an open door")
 {
-    gm->SetMap({
+    GIVEN("A Map with a floor, open door and player")
+    {
+        gm->SetMap({
         {Tile::Floor, Tile::OpenDoor}
         });
-    player->SetPosition(0, 0);
-    Given_Command(Command::Right);
-
-    When_ProcessCommand();
-    Then_Player_Position(1, 0);
+        player->SetPosition(0, 0);
+        WHEN("A right command is given")
+        {
+            GetCommand(Command::Right);
+            ProcessCommand();
+            THEN("The player has moved")
+            {
+                Require_Player_Position(1, 0);
+            }
+        }
+    }
 }
 
-TEST_F(AGameEngine, ChangesAClosedDoorToAOpenDoorWhenActioned)
+TEST_CASE_METHOD(TestFixture, "A Closed Door Chnages to An Open Door when actioned")
 {
-    gm->SetMap({
+    GIVEN("A Map with a floor, closed door and player")
+    {
+        gm->SetMap({
         {Tile::Floor, Tile::ClosedDoor}
         });
-    player->SetPosition(0, 0);
-    Given_Command(Command::ActionRight);
-
-    When_ProcessCommand();
-    EXPECT_THAT(Tile::OpenDoor, Eq(gm->GetTile(1, 0)));
+        player->SetPosition(0, 0);
+        WHEN("A ActionRight command is given")
+        {
+            GetCommand(Command::ActionRight);
+            ProcessCommand();
+            THEN("The door has opened")
+            {
+                REQUIRE(gm->GetTile(1, 0) == Tile::OpenDoor);
+            }
+        }
+    }
 }
 
-TEST_F(AGameEngine, ChangesAOpenDoorToAClosedDoorWhenActioned)
+TEST_CASE_METHOD(TestFixture, "An Open Door Chnages to A closed Door when actioned")
 {
-    gm->SetMap({
+    GIVEN("A Map with a floor, open door and player")
+    {
+        gm->SetMap({
         {Tile::Floor, Tile::OpenDoor}
         });
-    player->SetPosition(0, 0);
-    Given_Command(Command::ActionRight);
-
-    When_ProcessCommand();
-    EXPECT_THAT(Tile::ClosedDoor, Eq(gm->GetTile(1, 0)));
+        player->SetPosition(0, 0);
+        WHEN("A ActionRight command is given")
+        {
+            GetCommand(Command::ActionRight);
+            ProcessCommand();
+            THEN("The door has closed")
+            {
+                REQUIRE(gm->GetTile(1, 0) == Tile::ClosedDoor);
+            }
+        }
+    }
 }
+
 
 

@@ -1,32 +1,26 @@
-#include "gmock/gmock.h"
+#include "test.h"
 #include "Player.h"
 
-using namespace ::testing;
-
-class APlayer: public Test
+SCENARIO("Player Positioning")
 {
-public:
-    Player player;
+    GIVEN("A Player at position {2,3}")
+    {
+        Player player{2,3};
 
-    APlayer() :
-        player{2, 3}
-    {}
-};
+        THEN("It can return its position")
+        {
+            REQUIRE(player.GetX() == 2);
+            REQUIRE(player.GetY() == 3);
+        }
+        WHEN("A Player is moved to position {4,7}")
+        {
+            player.SetPosition(4, 7);
 
-TEST_F(APlayer, ReturnsItsXPosition)
-{
-    ASSERT_THAT(2, Eq(player.GetX()));
+            THEN("its new position is {4,7}")
+            {
+                REQUIRE(player.GetX() == 4);
+                REQUIRE(player.GetY() == 7);
+            }
+        }
+    }
 }
-
-TEST_F(APlayer, ReturnsItsYPosition)
-{
-    ASSERT_THAT(3, Eq(player.GetY()));
-}
-
-TEST_F(APlayer, CanBeMoved)
-{
-    player.SetPosition(4, 7);
-    ASSERT_THAT(4, Eq(player.GetX()));
-    ASSERT_THAT(7, Eq(player.GetY()));
-}
-

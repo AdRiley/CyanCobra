@@ -1,9 +1,7 @@
-#include "gmock/gmock.h"
+#include "test.h"
 #include "AsciiGameMapView.h"
 #include "GameMap.h"
 #include "Player.h"
-
-using namespace ::testing;
 
 class MockDisplay : public Display
 {
@@ -13,96 +11,89 @@ public:
     MOCK_METHOD3(DrawTile, void(int x, int y, char c));
 };
 
-TEST(AnAsciiGameMapView, DrawsA2x3GameMap)
+SCENARIO("Drawing a 2x3 Game Map")
 {
-    GameMap gm{{Tile::Floor, Tile::Wall},
-               {Tile::Floor, Tile::Wall},
-               {Tile::Wall,  Tile::Wall}};
-    std::shared_ptr<MockDisplay> display{std::make_shared<MockDisplay>()};
-    AsciiGameMapView gmv{display};
-
-    EXPECT_CALL(*display, ClearScreen())
-        .Times(1);
-    EXPECT_CALL(*display, DrawTile(0, 0, '.'))
-        .Times(1);
-    EXPECT_CALL(*display, DrawTile(1, 0, '#'))
-        .Times(1);
-    EXPECT_CALL(*display, DrawTile(0, 1, '.'))
-        .Times(1);
-    EXPECT_CALL(*display, DrawTile(1, 1, '#'))
-        .Times(1);
-    EXPECT_CALL(*display, DrawTile(0, 2, '#'))
-        .Times(1);
-    EXPECT_CALL(*display, DrawTile(1, 2, '#'))
-        .Times(1);
-    EXPECT_CALL(*display, RefreshScreen())
-        .Times(1);
-
-    gmv.DrawMap(gm);
+    GIVEN("A 2x3 Game Map and a AsciiGameMapView")
+    {
+        GameMap gm{{Tile::Floor, Tile::Wall},
+                   {Tile::Floor, Tile::Wall},
+                   {Tile::Wall,  Tile::Wall}};
+        std::shared_ptr<MockDisplay> display{std::make_shared<MockDisplay>()};
+        AsciiGameMapView gmv{display};
+        
+        THEN("expect the calls")
+        {
+            EXPECT_CALL(*display, ClearScreen())
+                .Times(1);
+            EXPECT_CALL(*display, DrawTile(0, 0, '.'))
+                .Times(1);
+            EXPECT_CALL(*display, DrawTile(1, 0, '#'))
+                .Times(1);
+            EXPECT_CALL(*display, DrawTile(0, 1, '.'))
+                .Times(1);
+            EXPECT_CALL(*display, DrawTile(1, 1, '#'))
+                .Times(1);
+            EXPECT_CALL(*display, DrawTile(0, 2, '#'))
+                .Times(1);
+            EXPECT_CALL(*display, DrawTile(1, 2, '#'))
+                .Times(1);
+            EXPECT_CALL(*display, RefreshScreen())
+                .Times(1);
+                
+            WHEN("the map is drawn to the display")
+            {
+                gmv.DrawMap(gm);
+            }
+            AND_THEN("if we add a player")
+            {
+                Player player{0, 1};
+                 EXPECT_CALL(*display, DrawTile(0, 1, '@'))
+                    .Times(1);
+                WHEN("the map and player are drawn to the display")
+                {
+                    gmv.DrawMapAndPlayer(gm, player);
+                }
+            }
+        }
+    }
 }
 
-TEST(AnAsciiGameMapView, DrawsA2x3GameMapWithPlayer)
+SCENARIO("Tiles Render As Correct Symbols")
 {
-    GameMap gm{{Tile::Floor, Tile::Wall},
-               {Tile::Floor, Tile::Wall},
-               {Tile::Wall,  Tile::Wall}};
-    Player player{0, 1};
-    std::shared_ptr<MockDisplay> display{std::make_shared<MockDisplay>()};
-    AsciiGameMapView gmv{display};
-
-    EXPECT_CALL(*display, ClearScreen())
-        .Times(1);
-    EXPECT_CALL(*display, DrawTile(0, 0, '.'))
-        .Times(1);
-    EXPECT_CALL(*display, DrawTile(1, 0, '#'))
-        .Times(1);
-    EXPECT_CALL(*display, DrawTile(0, 1, '.'))
-        .Times(1);
-    EXPECT_CALL(*display, DrawTile(1, 1, '#'))
-        .Times(1);
-    EXPECT_CALL(*display, DrawTile(0, 2, '#'))
-        .Times(1);
-    EXPECT_CALL(*display, DrawTile(1, 2, '#'))
-        .Times(1);
-    EXPECT_CALL(*display, DrawTile(0, 1, '@'))
-        .Times(1);
-    EXPECT_CALL(*display, RefreshScreen())
-        .Times(1);
-
-    gmv.DrawMapAndPlayer(gm, player);
+    SECTION("Setup")
+    {
+        std::shared_ptr<MockDisplay> display{std::make_shared<MockDisplay>()};
+        AsciiGameMapView gmv{display};
+        EXPECT_CALL(*display, ClearScreen())
+            .Times(1);
+        EXPECT_CALL(*display, RefreshScreen())
+            .Times(1);
+        GIVEN("A Closed Door")
+        {
+            GameMap gm{{Tile::ClosedDoor}};
+            THEN("Renders as Backslash")
+            {
+                EXPECT_CALL(*display, DrawTile(0, 0, '\\'))
+                    .Times(1);
+                WHEN("the map is drawn")
+                {
+                    gmv.DrawMap(gm);
+                }
+            }
+        }
+        GIVEN("A Open Door")
+        {
+            GameMap gm{{Tile::OpenDoor}};
+            THEN("Renders as Underscore")
+            {
+                EXPECT_CALL(*display, DrawTile(0, 0, '_'))
+                    .Times(1);
+                WHEN("the map is drawn")
+                {
+                    gmv.DrawMap(gm);
+                }
+            }
+        }
+        
+    }
 }
-
-TEST(AnAsciiGameMapView, RendersAClosedDoorAsBackslash)
-{
-    GameMap gm{{Tile::ClosedDoor}};
-    std::shared_ptr<MockDisplay> display{std::make_shared<MockDisplay>()};
-    AsciiGameMapView gmv{display};
-
-    EXPECT_CALL(*display, ClearScreen())
-        .Times(1);
-    EXPECT_CALL(*display, DrawTile(0, 0, '\\'))
-        .Times(1);
-    EXPECT_CALL(*display, RefreshScreen())
-        .Times(1);
-
-    gmv.DrawMap(gm);
-}
-
-TEST(AnAsciiGameMapView, RendersAnOpenDoorAsUnderscore)
-{
-    GameMap gm{{Tile::OpenDoor}};
-    std::shared_ptr<MockDisplay> display{std::make_shared<MockDisplay>()};
-    AsciiGameMapView gmv{display};
-
-    EXPECT_CALL(*display, ClearScreen())
-        .Times(1);
-    EXPECT_CALL(*display, DrawTile(0, 0, '_'))
-        .Times(1);
-    EXPECT_CALL(*display, RefreshScreen())
-        .Times(1);
-
-    gmv.DrawMap(gm);
-}
-
-
-
