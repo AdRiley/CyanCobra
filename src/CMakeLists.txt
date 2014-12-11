@@ -25,7 +25,8 @@ set (testSources
      GameMapTester.cpp
      RoomGeneratorTester.cpp
      AsciiGameMapViewTester.cpp
-     PlayerTester.cpp)
+     PlayerTester.cpp
+     PointTester.cpp)
 add_executable(runUnitTests ${testSources})
 target_link_libraries(runUnitTests CyanCobra_lib) 
 target_link_libraries(runUnitTests pthread)
