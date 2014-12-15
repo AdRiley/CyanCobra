@@ -2,6 +2,7 @@
 #define GAMEMAP_H
 
 #include <vector>
+#include "Point.h"
 
 enum class Tile
 {
@@ -25,14 +26,14 @@ public:
     GameMap(std::initializer_list<std::initializer_list<Tile>> iListTiles);
     GameMap(unsigned int x, unsigned int y);
     void SetMap(std::initializer_list<std::initializer_list<Tile>> iListTiles);
-    void SetTile(int x, int y, Tile t);
-    Tile GetTile(int x, int y) const;
+    void SetTile(Point p, Tile t);
+    Tile GetTile(Point p) const;
     int GetMinX() const;
     int GetMaxX() const;
     int GetMinY() const;
     int GetMaxY() const;
 private:
-    bool XYInBounds(int x, int y) const;
+    bool XYInBounds(Point p) const;
 };
 
 #endif

@@ -23,7 +23,7 @@
 
 /*static*/ bool RoomGenerator::TileIsWallOrEmpty(const GameMap &gm, int x, int y)
 {
-    auto t = gm.GetTile(x, y);
+    auto t = gm.GetTile({x, y});
     return t == Tile::Wall || t == Tile::Empty;
 }
 
@@ -31,7 +31,7 @@
 {
     for (int i = startX; i <= endX; ++i)
         for (int j = startY; j <= endY; ++j)
-            if (gm.GetTile(i, j) != Tile::Empty)
+            if (gm.GetTile({i, j}) != Tile::Empty)
                 return false;
 
     return true;
@@ -52,8 +52,8 @@
 {
     for (int i = startX; i <= endX; ++i)
     {
-        if (gm.GetTile(i, y) == Tile::Empty)
-            gm.SetTile(i, y, t);
+        if (gm.GetTile({i, y}) == Tile::Empty)
+            gm.SetTile({i, y}, t);
     }
 }
 
@@ -61,7 +61,7 @@
 {
     for (int j = startY; j <= endY; ++j)
     {
-        if (gm.GetTile(x, j) == Tile::Empty)
-            gm.SetTile(x, j, t);
+        if (gm.GetTile({x, j}) == Tile::Empty)
+            gm.SetTile({x, j}, t);
     }
 }

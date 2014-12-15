@@ -8,7 +8,7 @@ SCENARIO("Empty game map")
         GameMap gMap{{}};
         THEN("a requested tile is empty")
         {
-            REQUIRE(gMap.GetTile(0,0) == Tile::Empty);
+            REQUIRE(gMap.GetTile({0,0}) == Tile::Empty);
         }
     }
 }
@@ -20,7 +20,7 @@ SCENARIO("A game map with a single tile returns that tile")
         GameMap gMap{{Tile::Floor}};
         THEN("it returns a floor tile")
         {
-            REQUIRE(gMap.GetTile(0,0) == Tile::Floor);
+            REQUIRE(gMap.GetTile({0,0}) == Tile::Floor);
         }
     }
 }
@@ -34,19 +34,19 @@ SCENARIO("Game Map Getters")
                      {Tile::Floor, Tile::Wall }};
         THEN("it returns the correct tiles")
         {
-            REQUIRE(gMap.GetTile(0,0) == Tile::Floor);
-            REQUIRE(gMap.GetTile(1,0) == Tile::Floor);
-            REQUIRE(gMap.GetTile(0,1) == Tile::Wall);
-            REQUIRE(gMap.GetTile(1,1) == Tile::Floor);
-            REQUIRE(gMap.GetTile(0,2) == Tile::Floor);
-            REQUIRE(gMap.GetTile(1,2) == Tile::Wall);
+            REQUIRE(gMap.GetTile({0,0}) == Tile::Floor);
+            REQUIRE(gMap.GetTile({1,0}) == Tile::Floor);
+            REQUIRE(gMap.GetTile({0,1}) == Tile::Wall);
+            REQUIRE(gMap.GetTile({1,1}) == Tile::Floor);
+            REQUIRE(gMap.GetTile({0,2}) == Tile::Floor);
+            REQUIRE(gMap.GetTile({1,2}) == Tile::Wall);
         }
         THEN("it returns empty tile for requests off the map")
         {
-            REQUIRE(gMap.GetTile(-1, 0) == Tile::Empty);
-            REQUIRE(gMap.GetTile( 0,-1) == Tile::Empty);
-            REQUIRE(gMap.GetTile( 1, 3) == Tile::Empty);
-            REQUIRE(gMap.GetTile( 2, 2) == Tile::Empty);
+            REQUIRE(gMap.GetTile({-1, 0}) == Tile::Empty);
+            REQUIRE(gMap.GetTile({ 0,-1}) == Tile::Empty);
+            REQUIRE(gMap.GetTile({ 1, 3}) == Tile::Empty);
+            REQUIRE(gMap.GetTile({ 2, 2}) == Tile::Empty);
         }
         THEN("it returns its bounds")
         {
@@ -77,22 +77,22 @@ SCENARIO("Game Map Setters")
             }
             THEN("it returns teh new tiles")
             {
-                REQUIRE(gMap.GetTile(0,0) == Tile::Floor);
+                REQUIRE(gMap.GetTile({0,0}) == Tile::Floor);
             }
         }
         WHEN("a single tile is set")
         {
-            gMap.SetTile(0, 0, Tile::OpenDoor);
+            gMap.SetTile({0, 0}, Tile::OpenDoor);
             THEN("That tile is the new tile")
             {
-                REQUIRE(gMap.GetTile(0, 0) == Tile::OpenDoor);
+                REQUIRE(gMap.GetTile({0, 0}) == Tile::OpenDoor);
             }
         }
         WHEN("a tile is set off the map")
         {
             THEN("it throws")
             {
-                REQUIRE_THROWS_AS(gMap.SetTile(5, 5, Tile::Floor), std::out_of_range);
+                REQUIRE_THROWS_AS(gMap.SetTile({5, 5}, Tile::Floor), std::out_of_range);
             }
         }
     }
@@ -105,12 +105,12 @@ SCENARIO("Empty Map Constructor")
         GameMap gMap{1, 2};
         THEN("all of its tiles are empty")
         {
-            REQUIRE(gMap.GetTile(0,0) == Tile::Empty);
-            REQUIRE(gMap.GetTile(1,0) == Tile::Empty);
-            REQUIRE(gMap.GetTile(0,1) == Tile::Empty);
-            REQUIRE(gMap.GetTile(1,1) == Tile::Empty);
-            REQUIRE(gMap.GetTile(0,2) == Tile::Empty);
-            REQUIRE(gMap.GetTile(1,2) == Tile::Empty);
+            REQUIRE(gMap.GetTile({0,0}) == Tile::Empty);
+            REQUIRE(gMap.GetTile({1,0}) == Tile::Empty);
+            REQUIRE(gMap.GetTile({0,1}) == Tile::Empty);
+            REQUIRE(gMap.GetTile({1,1}) == Tile::Empty);
+            REQUIRE(gMap.GetTile({0,2}) == Tile::Empty);
+            REQUIRE(gMap.GetTile({1,2}) == Tile::Empty);
         }
         THEN("it returns the correct range")
         {

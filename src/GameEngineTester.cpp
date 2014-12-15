@@ -175,7 +175,7 @@ TEST_CASE_METHOD(TestFixture, "A Closed Door Chnages to An Open Door when action
             ProcessCommand();
             THEN("The door has opened")
             {
-                REQUIRE(gm->GetTile(1, 0) == Tile::OpenDoor);
+                REQUIRE(gm->GetTile({1, 0}) == Tile::OpenDoor);
             }
         }
     }
@@ -195,7 +195,7 @@ TEST_CASE_METHOD(TestFixture, "An Open Door Chnages to A closed Door when action
             ProcessCommand();
             THEN("The door has closed")
             {
-                REQUIRE(gm->GetTile(1, 0) == Tile::ClosedDoor);
+                REQUIRE(gm->GetTile({1, 0}) == Tile::ClosedDoor);
             }
         }
     }

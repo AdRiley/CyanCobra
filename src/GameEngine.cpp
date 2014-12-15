@@ -49,7 +49,7 @@ void GameEngine::MovePlayer(int deltaX, int deltaY)
 {
     int destX = m_Player->GetX() + deltaX;
     int destY = m_Player->GetY() + deltaY;
-    if (IsPassable(m_GameMap->GetTile(destX, destY)))
+    if (IsPassable(m_GameMap->GetTile({destX, destY})))
         m_Player->SetPosition(destX, destY);
 }
 
@@ -62,14 +62,14 @@ void GameEngine::Action(int deltaX, int deltaY)
 
 void GameEngine::ActionTile(int x, int y)
 {
-    auto tile = m_GameMap->GetTile(x, y);
+    auto tile = m_GameMap->GetTile({x, y});
     switch (tile)
     {
         case Tile::ClosedDoor:
-            m_GameMap->SetTile(x, y, Tile::OpenDoor);
+            m_GameMap->SetTile({x, y}, Tile::OpenDoor);
             break;
         case Tile::OpenDoor:
-            m_GameMap->SetTile(x, y, Tile::ClosedDoor);
+            m_GameMap->SetTile({x, y}, Tile::ClosedDoor);
             break;
         default:
             break;

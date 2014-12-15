@@ -1,3 +1,6 @@
+#ifndef POINT_H
+#define POINT_H
+
 struct Point
 {
     int x;
@@ -8,3 +11,5 @@ struct Point
     Point Left()  {Point p{x-1, y}; return p;}
     Point Right() {Point p{x+1, y}; return p;}
 };
+
+#endif
