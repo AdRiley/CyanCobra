@@ -10,6 +10,15 @@ struct Point
     Point Down()  {Point p{x, y-1}; return p;}
     Point Left()  {Point p{x-1, y}; return p;}
     Point Right() {Point p{x+1, y}; return p;}
+    std::vector<Point> AdjPoints()
+    {
+		std::vector<Point> ret;
+		ret.push_back(Up());
+		ret.push_back(Right());
+		ret.push_back(Down());
+		ret.push_back(Left());
+		return ret;
+	}
 };
 
 #endif

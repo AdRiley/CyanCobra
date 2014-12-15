@@ -7,5 +7,5 @@ private:
 	GameMap& m_GameMap;
 public:
 	RoomMaker(GameMap& gm);
-	void MakeRoom(Point p, unsigned int size);
+	void MakeRoom(Point buildPoint, unsigned int size);
 };
