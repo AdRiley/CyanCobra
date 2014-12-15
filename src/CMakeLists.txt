@@ -12,6 +12,7 @@ set(sources
     GameMap.cpp
     RoomGenerator.cpp
     AsciiGameMapView.cpp
+    RoomMaker.cpp
     Player.cpp)
 add_library(CyanCobra_lib ${sources})
 add_executable(CyanCobra main.cpp CursesDisplay.cpp)
@@ -26,6 +27,7 @@ set (testSources
      RoomGeneratorTester.cpp
      AsciiGameMapViewTester.cpp
      PlayerTester.cpp
+     RoomMakerTester.cpp
      PointTester.cpp)
 add_executable(runUnitTests ${testSources})
 target_link_libraries(runUnitTests CyanCobra_lib) 
