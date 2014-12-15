@@ -14,6 +14,34 @@ SCENARIO("Point Constructor")
 	}
 }
 
+SCENARIO("Offsetters")
+{
+	GIVEN("A Point")
+	{
+		Point p{1,3};
+		THEN("Up() gets the point adjacent up")
+		{
+			REQUIRE(p.Up().x == 1);
+			REQUIRE(p.Up().y == 4);
+		}
+		THEN("Down() gets the point adjacent down")
+		{
+			REQUIRE(p.Down().x == 1);
+			REQUIRE(p.Down().y == 2);
+		}
+		THEN("Left() gets the point adjacent left")
+		{
+			REQUIRE(p.Left().x == 0);
+			REQUIRE(p.Left().y == 3);
+		}
+		THEN("Right() gets the point adjacent right")
+		{
+			REQUIRE(p.Right().x == 2);
+			REQUIRE(p.Right().y == 3);
+		}
+	}
+}
+
 class PointFixture
 {
 public:
