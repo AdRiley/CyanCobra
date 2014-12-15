@@ -4,28 +4,28 @@
 
 SCENARIO("A room request of size 1 makes a room")
 {
-	GIVEN("A map with a door and a RoomMaker")
+	GIVEN("A map with a build point with a door above and a RoomMaker")
 	{
 	    GameMap gm{2, 2};
-	    gm.SetTile({1, 2}, Tile::ClosedDoor);
+	    Point buildPoint{1, 1};
+	    gm.SetTile(buildPoint.Up(), Tile::ClosedDoor);
 	    RoomMaker rm(gm);
 	    WHEN("We make a room of size 1 at point p")
 	    {
-			Point p{1, 1};
-			rm.MakeRoom(p, 1);
+			rm.MakeRoom(buildPoint, 1);
 			THEN("Point p is floor")
 			{
-				REQUIRE(gm.GetTile(p) == Tile::Floor);
+				REQUIRE(gm.GetTile(buildPoint) == Tile::Floor);
 			}
 			THEN("The door is still a door")
 			{
-				REQUIRE(gm.GetTile({1, 2}) == Tile::ClosedDoor);
+				REQUIRE(gm.GetTile(buildPoint.Up()) == Tile::ClosedDoor);
 			}
 			THEN("The other 3 sides are walls")
 			{
-				REQUIRE(gm.GetTile({1, 0}) == Tile::Wall);
-				REQUIRE(gm.GetTile({0, 1}) == Tile::Wall);
-				REQUIRE(gm.GetTile({2, 1}) == Tile::Wall);
+				REQUIRE(gm.GetTile(buildPoint.Left()) == Tile::Wall);
+				REQUIRE(gm.GetTile(buildPoint.Right()) == Tile::Wall);
+				REQUIRE(gm.GetTile(buildPoint.Down()) == Tile::Wall);
 			}
 	    }
 	}
