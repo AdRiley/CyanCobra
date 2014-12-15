@@ -19,6 +19,15 @@ struct Point
 		ret.push_back(Left());
 		return ret;
 	}
+	std::vector<Point> DiagPoints()
+    {
+		std::vector<Point> ret;
+		ret.push_back(Up().Right());
+		ret.push_back(Right().Down());
+		ret.push_back(Down().Left());
+		ret.push_back(Left().Up());
+		return ret;
+	}
 };
 
 #endif

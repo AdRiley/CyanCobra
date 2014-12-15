@@ -21,11 +21,16 @@ SCENARIO("A room request of size 1 makes a room")
 			{
 				REQUIRE(gm.GetTile(buildPoint.Up()) == Tile::ClosedDoor);
 			}
-			THEN("The other 3 sides are walls")
+			THEN("The other 3 sides and the corners are walls")
 			{
 				REQUIRE(gm.GetTile(buildPoint.Left()) == Tile::Wall);
 				REQUIRE(gm.GetTile(buildPoint.Right()) == Tile::Wall);
 				REQUIRE(gm.GetTile(buildPoint.Down()) == Tile::Wall);
+				
+				REQUIRE(gm.GetTile(buildPoint.Left().Down()) == Tile::Wall);
+				REQUIRE(gm.GetTile(buildPoint.Right().Down()) == Tile::Wall);
+				REQUIRE(gm.GetTile(buildPoint.Left().Up()) == Tile::Wall);
+				REQUIRE(gm.GetTile(buildPoint.Right().Up()) == Tile::Wall);
 			}
 	    }
 	}
@@ -52,6 +57,11 @@ SCENARIO("A room request of size 1 makes a room")
 				REQUIRE(gm.GetTile(buildPoint.Left()) == Tile::Wall);
 				REQUIRE(gm.GetTile(buildPoint.Right()) == Tile::Wall);
 				REQUIRE(gm.GetTile(buildPoint.Up()) == Tile::Wall);
+				
+				REQUIRE(gm.GetTile(buildPoint.Left().Down()) == Tile::Wall);
+				REQUIRE(gm.GetTile(buildPoint.Right().Down()) == Tile::Wall);
+				REQUIRE(gm.GetTile(buildPoint.Left().Up()) == Tile::Wall);
+				REQUIRE(gm.GetTile(buildPoint.Right().Up()) == Tile::Wall);
 			}
 	    }
 	}
