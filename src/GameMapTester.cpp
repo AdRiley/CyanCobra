@@ -75,7 +75,7 @@ SCENARIO("Game Map Setters")
                 REQUIRE(gMap.GetMinY() == 0);
                 REQUIRE(gMap.GetMaxY() == 0);
             }
-            THEN("it returns teh new tiles")
+            THEN("it returns the new tiles")
             {
                 REQUIRE(gMap.GetTile({0,0}) == Tile::Floor);
             }
@@ -90,9 +90,10 @@ SCENARIO("Game Map Setters")
         }
         WHEN("a tile is set off the map")
         {
-            THEN("it throws")
+            gMap.SetTile({5, 5}, Tile::Floor);
+            THEN("That tile is the new tile")
             {
-                REQUIRE_THROWS_AS(gMap.SetTile({5, 5}, Tile::Floor), std::out_of_range);
+                REQUIRE(gMap.GetTile({5, 5}) == Tile::Floor);
             }
         }
     }
@@ -100,9 +101,9 @@ SCENARIO("Game Map Setters")
      
 SCENARIO("Empty Map Constructor")
 {
-    GIVEN("an empty map of size 1, 2")
+    GIVEN("an empty map")
     {
-        GameMap gMap{1, 2};
+        GameMap gMap{{}};
         THEN("all of its tiles are empty")
         {
             REQUIRE(gMap.GetTile({0,0}) == Tile::Empty);
@@ -115,9 +116,9 @@ SCENARIO("Empty Map Constructor")
         THEN("it returns the correct range")
         {
             REQUIRE(gMap.GetMinX() == 0);
-            REQUIRE(gMap.GetMaxX() == 1);
+            REQUIRE(gMap.GetMaxX() == 0);
             REQUIRE(gMap.GetMinY() == 0);
-            REQUIRE(gMap.GetMaxY() == 2);
+            REQUIRE(gMap.GetMaxY() == 0);
         }
     }
 }

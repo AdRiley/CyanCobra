@@ -1,6 +1,8 @@
 #ifndef POINT_H
 #define POINT_H
 
+#include <vector>
+
 struct Point
 {
     int x;
@@ -28,6 +30,10 @@ struct Point
 		ret.push_back(Left().Up());
 		return ret;
 	}
+    friend bool operator<(const Point& lhs, const Point& rhs)
+    {
+        return (lhs.x < rhs.x) || ((lhs.x == rhs.x) && (lhs.y < rhs.y));
+    }
 };
 
 #endif

@@ -1,7 +1,7 @@
 #ifndef GAMEMAP_H
 #define GAMEMAP_H
 
-#include <vector>
+#include <map>
 #include "Point.h"
 
 enum class Tile
@@ -17,7 +17,7 @@ enum class Tile
 class GameMap
 {
 private:
-    std::vector<std::vector<Tile>> m_Map;
+    std::map<Point, Tile> m_Map;
     int m_MinX;
     int m_MaxX;
     int m_MinY;
@@ -32,8 +32,6 @@ public:
     int GetMaxX() const;
     int GetMinY() const;
     int GetMaxY() const;
-private:
-    bool XYInBounds(Point p) const;
 };
 
 #endif

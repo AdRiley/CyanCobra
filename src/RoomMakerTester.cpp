@@ -6,7 +6,7 @@ SCENARIO("A room request of size 1 makes a room")
 {
 	GIVEN("A map with a build point with a door above and a RoomMaker")
 	{
-	    GameMap gm{2, 2};
+        GameMap gm{{}};
 	    Point buildPoint{1, 1};
 	    gm.SetTile(buildPoint.Up(), Tile::ClosedDoor);
 	    RoomMaker rm(gm);
@@ -37,7 +37,7 @@ SCENARIO("A room request of size 1 makes a room")
 	
 	GIVEN("A map with a build point with a door below and a RoomMaker")
 	{
-	    GameMap gm{2, 2};
+        GameMap gm{{}};
 	    Point buildPoint{1, 1};
 	    gm.SetTile(buildPoint.Down(), Tile::ClosedDoor);
 	    RoomMaker rm(gm);
@@ -71,7 +71,7 @@ SCENARIO("A room request of size 1 makes a room with doors")
 {
 	GIVEN("A map with a build point with a door left and a RoomMaker")
 	{
-	    GameMap gm{2, 2};
+        GameMap gm{{}};
 	    Point buildPoint{1, 1};
 	    gm.SetTile(buildPoint.Left(), Tile::ClosedDoor);
 	    RoomMaker rm(gm);

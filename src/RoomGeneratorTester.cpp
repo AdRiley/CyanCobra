@@ -7,7 +7,7 @@ class ARoomGenerator
 {
 public:
     GameMap gm;
-    ARoomGenerator() : gm {3,3}
+    ARoomGenerator() : gm {{}}
     {}
 
     void RequireRangeIsTile(Tile t, const GameMap& gm, int startX, int startY, int endX, int endY)
