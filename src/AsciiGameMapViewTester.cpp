@@ -46,7 +46,7 @@ SCENARIO("Drawing a 2x3 Game Map")
             }
             AND_THEN("if we add a player")
             {
-                Player player{0, 1};
+                Player player{Point(0, 1)};
                  EXPECT_CALL(*display, DrawTile(0, 1, '@'))
                     .Times(1);
                 WHEN("the map and player are drawn to the display")

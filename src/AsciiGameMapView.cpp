@@ -35,5 +35,5 @@ void AsciiGameMapView::RenderMap(const GameMap& gameMap)
 
 void AsciiGameMapView::RenderPlayer(const Player& player)
 {
-    m_Display->DrawTile(player.GetX(), player.GetY(), m_TileSymbol[Tile::Player]);
+    m_Display->DrawTile(player.GetLocation().x, player.GetLocation().y, m_TileSymbol[Tile::Player]);
 }

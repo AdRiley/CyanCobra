@@ -1,16 +1,16 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include "Point.h"
+
 class Player
 {
 private:
-    int m_X;
-    int m_Y;
+    Point m_Location;
 public:
-    Player(int x, int y);
-    int GetX() const;
-    int GetY() const;
-    void SetPosition(int x, int y);
+    Player(Point location);
+    Point GetLocation() const;
+    void SetLocation(Point location);
 };
 
 #endif

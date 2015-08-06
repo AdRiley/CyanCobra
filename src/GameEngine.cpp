@@ -47,16 +47,16 @@ bool GameEngine::ProcessCommand()
 
 void GameEngine::MovePlayer(int deltaX, int deltaY)
 {
-    int destX = m_Player->GetX() + deltaX;
-    int destY = m_Player->GetY() + deltaY;
+    int destX = m_Player->GetLocation().x + deltaX;
+    int destY = m_Player->GetLocation().y + deltaY;
     if (IsPassable(m_GameMap->GetTile({destX, destY})))
-        m_Player->SetPosition(destX, destY);
+        m_Player->SetLocation(Point(destX, destY));
 }
 
 void GameEngine::Action(int deltaX, int deltaY)
 {
-    int actionDestX = m_Player->GetX() + deltaX;
-    int actionDestY = m_Player->GetY() + deltaY;
+    int actionDestX = m_Player->GetLocation().x + deltaX;
+    int actionDestY = m_Player->GetLocation().y + deltaY;
     ActionTile(actionDestX, actionDestY);
 }
 

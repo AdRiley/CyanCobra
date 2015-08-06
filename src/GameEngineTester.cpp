@@ -30,7 +30,7 @@ public:
         input = std::make_shared<MockInput>();
         gmv = std::make_shared<MockGameMapView>();
         gm = std::make_shared<GameMap>(std::initializer_list<std::initializer_list<Tile>>{{}});
-        player = std::make_shared<Player>(7, 4);
+        player = std::make_shared<Player>(Point(7, 4));
         gEngine = std::make_shared<GameEngine>(input, player, gm, gmv);
     }
 
@@ -50,8 +50,8 @@ public:
 
     void Require_Player_Position(int x, int y)
     {
-        REQUIRE(player->GetY() == y);
-        REQUIRE(player->GetX() == x);
+        REQUIRE(player->GetLocation().y == y);
+        REQUIRE(player->GetLocation().x == x);
     }
 };
 
@@ -128,7 +128,7 @@ TEST_CASE_METHOD(TestFixture, "Test a player does not move to an impassable tile
         gm->SetMap({
         {Tile::Floor, Tile::Wall}
         });
-        player->SetPosition(0, 0);
+        player->SetLocation(Point(0, 0));
         WHEN("A right command is given")
         {
             GetCommand(Command::Right);
@@ -148,7 +148,7 @@ TEST_CASE_METHOD(TestFixture, "Test a player moves to an open door")
         gm->SetMap({
         {Tile::Floor, Tile::OpenDoor}
         });
-        player->SetPosition(0, 0);
+        player->SetLocation(Point(0, 0));
         WHEN("A right command is given")
         {
             GetCommand(Command::Right);
@@ -161,14 +161,14 @@ TEST_CASE_METHOD(TestFixture, "Test a player moves to an open door")
     }
 }
 
-TEST_CASE_METHOD(TestFixture, "A Closed Door Chnages to An Open Door when actioned")
+TEST_CASE_METHOD(TestFixture, "A Closed Door Changes to An Open Door when actioned")
 {
     GIVEN("A Map with a floor, closed door and player")
     {
         gm->SetMap({
         {Tile::Floor, Tile::ClosedDoor}
         });
-        player->SetPosition(0, 0);
+        player->SetLocation(Point(0, 0));
         WHEN("A ActionRight command is given")
         {
             GetCommand(Command::ActionRight);
@@ -181,14 +181,14 @@ TEST_CASE_METHOD(TestFixture, "A Closed Door Chnages to An Open Door when action
     }
 }
 
-TEST_CASE_METHOD(TestFixture, "An Open Door Chnages to A closed Door when actioned")
+TEST_CASE_METHOD(TestFixture, "An Open Door Changes to A closed Door when actioned")
 {
     GIVEN("A Map with a floor, open door and player")
     {
         gm->SetMap({
         {Tile::Floor, Tile::OpenDoor}
         });
-        player->SetPosition(0, 0);
+        player->SetLocation(Point(0, 0));
         WHEN("A ActionRight command is given")
         {
             GetCommand(Command::ActionRight);

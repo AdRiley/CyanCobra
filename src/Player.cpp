@@ -1,22 +1,15 @@
 #include "Player.h"
 
-Player::Player(int x, int y) :
-    m_X(x),
-    m_Y(y)
+Player::Player(Point location) :
+    m_Location(location)
 {}
 
-int Player::GetX() const
+Point Player::GetLocation() const
 {
-    return m_X;
+    return m_Location;
 }
 
-int Player::GetY() const
+void Player::SetLocation(Point location)
 {
-    return m_Y;
-}
-
-void Player::SetPosition(int x, int y)
-{
-    m_X = x;
-    m_Y = y;
+    m_Location= location;
 }

@@ -39,7 +39,7 @@ int main(void)
               {Tile::Empty, Tile::Empty, Tile::Empty, Tile::Empty, Tile::Wall      , Tile::Empty, Tile::Empty, Tile::Empty, Tile::Empty}
               }
               )};
-    std::shared_ptr<Player> player{std::make_shared<Player>(4, 20)};
+    std::shared_ptr<Player> player{std::make_shared<Player>(Point(4, 20))};
     std::shared_ptr<CursesDisplay> display{std::make_shared<CursesDisplay>()};
     std::shared_ptr<AsciiGameMapView> gmv{std::make_shared<AsciiGameMapView>(display)};
     std::shared_ptr<CursesInput> input{std::make_shared<CursesInput>()};
