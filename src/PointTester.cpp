@@ -22,12 +22,12 @@ SCENARIO("Offsetters")
 		THEN("Up() gets the point adjacent up")
 		{
 			REQUIRE(p.Up().x == 1);
-			REQUIRE(p.Up().y == 4);
+			REQUIRE(p.Up().y == 2);
 		}
 		THEN("Down() gets the point adjacent down")
 		{
 			REQUIRE(p.Down().x == 1);
-			REQUIRE(p.Down().y == 2);
+			REQUIRE(p.Down().y == 4);
 		}
 		THEN("Left() gets the point adjacent left")
 		{

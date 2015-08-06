@@ -14,28 +14,28 @@ bool GameEngine::ProcessCommand()
     switch (command)
     {
         case Command::Up:
-            MovePlayer(0, -1);
+            MovePlayer(m_Player->GetLocation().Up());
             break;
         case Command::Down:
-            MovePlayer(0, 1);
+            MovePlayer(m_Player->GetLocation().Down());
             break;
         case Command::Left:
-            MovePlayer(-1, 0);
+            MovePlayer(m_Player->GetLocation().Left());
             break;
         case Command::Right:
-            MovePlayer(1, 0);
+            MovePlayer(m_Player->GetLocation().Right());
             break;
         case Command::ActionUp:
-            Action(0, -1);
+            Action(m_Player->GetLocation().Up());
             break;
         case Command::ActionDown:
-            Action(0, 1);
+            Action(m_Player->GetLocation().Down());
             break;
         case Command::ActionLeft:
-            Action(-1, 0);
+            Action(m_Player->GetLocation().Left());
             break;
         case Command::ActionRight:
-            Action(1, 0);
+            Action(m_Player->GetLocation().Right());
             break;
         case Command::Exit:
             return false;
@@ -45,31 +45,27 @@ bool GameEngine::ProcessCommand()
     return true;
 }
 
-void GameEngine::MovePlayer(int deltaX, int deltaY)
+void GameEngine::MovePlayer(Point destination)
 {
-    int destX = m_Player->GetLocation().x + deltaX;
-    int destY = m_Player->GetLocation().y + deltaY;
-    if (IsPassable(m_GameMap->GetTile({destX, destY})))
-        m_Player->SetLocation(Point(destX, destY));
+    if (IsPassable(m_GameMap->GetTile(destination)))
+        m_Player->SetLocation(destination);
 }
 
-void GameEngine::Action(int deltaX, int deltaY)
+void GameEngine::Action(Point target)
 {
-    int actionDestX = m_Player->GetLocation().x + deltaX;
-    int actionDestY = m_Player->GetLocation().y + deltaY;
-    ActionTile(actionDestX, actionDestY);
+    ActionTile(target);
 }
 
-void GameEngine::ActionTile(int x, int y)
+void GameEngine::ActionTile(Point target)
 {
-    auto tile = m_GameMap->GetTile({x, y});
+    auto tile = m_GameMap->GetTile(target);
     switch (tile)
     {
         case Tile::ClosedDoor:
-            m_GameMap->SetTile({x, y}, Tile::OpenDoor);
+            m_GameMap->SetTile(target, Tile::OpenDoor);
             break;
         case Tile::OpenDoor:
-            m_GameMap->SetTile({x, y}, Tile::ClosedDoor);
+            m_GameMap->SetTile(target, Tile::ClosedDoor);
             break;
         default:
             break;
