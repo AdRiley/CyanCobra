@@ -12,9 +12,9 @@ GameMap::GameMap(std::initializer_list<std::initializer_list<Tile>> iListTiles) 
 
 GameMap::GameMap(unsigned int x, unsigned int y) :
     m_MinX{0},
-    m_MaxX{x},
+    m_MaxX{static_cast<int>(x)},
     m_MinY{0},
-    m_MaxY{y}
+    m_MaxY{static_cast<int>(y)}
 {
     for (unsigned int i = 0; i <= y; ++i)
     {
